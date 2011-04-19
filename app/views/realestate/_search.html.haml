@@ -1,0 +1,56 @@
+.tab
+	%h2	Search Property To Buy / Rent
+
+.container
+	- form_remote_tag (:url => {:action => 'search_results'}, :method => 'get', :id => 'form1') do
+		%table.search_form{:style => "width:100%; border:none;"}
+			%tbody
+				%tr
+					%td{:colspan => 4}
+						%p
+							%label Region
+							= collection_select(nil, :region_id, @regions, :id, :region_name, {:prompt => "- all -"}, {:class => "select_field", :onChange => remote_function(:url => {:action => "update_cities", :type => 1}, :with => "'region_id='+value")})
+						
+							%span#cities
+						
+							%span#districts
+				
+				%tr
+					%td.label Metro
+					%td= collection_select(nil, :metro_id, @metros, :id, :name, {:prompt => "- all -"}, {:class => "select_field"})
+				
+					%td.label School
+					%td= collection_select(nil, :school_id, @schools, :id, :name, {:prompt => "- all -"}, {:class => "select_field"})
+
+				%tr
+					%td.label	Type
+					%td{:width => "34%"}= collection_select(nil, :ptype_id, @ptypes, :id, :ptype_name, {:prompt => "- all -"}, {:class => "select_field"})
+							
+					%td.label{:width => "14%"} Minimum Price Rs.
+					%td{:width => "42%"}= text_field_tag "minprice", nil, :class => "text"
+				
+				%tr
+					%td.label To
+					%td= collection_select(nil, :category_id, @categories, :id, :name, {:prompt => "- all -"}, {:class => "select_field"})
+					
+					%td.label Maximum Price Rs.
+					%td= text_field_tag "maxprice", nil, :class => "text"
+							
+				%tr
+					%td.label Rooms
+					%td= collection_select(nil, :room_id, @rooms, :id, :name, {:prompt => "- any -"}, {:class => "select_field"})
+					
+					%td.label Floor
+					%td= select(nil, :floor, 1..16, {:prompt => "- any -"}, {:class => "select_field"})
+				
+				%tr
+					%td.label Material
+					%td= collection_select(nil, :material_id, @materials, :id, :name, {:prompt => "- any -"}, {:class => "select_field"})
+
+					%td.label Minimum Area
+					%td= select(nil, :area, (20..100).step(20).to_a + (100..1000).step(100).to_a, {:prompt => "- any -"}, {:class => "select_field"})
+					
+				%tr
+					%td.label
+					%td
+					%td.label{:colspan => 2}= image_submit_tag "searchbtn.gif", :id => "button2"

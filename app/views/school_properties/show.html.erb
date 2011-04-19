@@ -1,0 +1,23 @@
+<p>
+  <b>School:</b>
+  <%=h @school_property.school_id %>
+</p>
+
+<p>
+  <b>Property:</b>
+  <%=h @school_property.property_id %>
+</p>
+
+<p>
+  <b>Transport:</b>
+  <%=h @school_property.transport_id %>
+</p>
+
+<p>
+  <b>Minutes:</b>
+  <%=h @school_property.minutes %>
+</p>
+
+
+<%= link_to 'Edit', edit_school_property_path(@school_property) %> |
+<%= link_to 'Back', school_properties_path %>

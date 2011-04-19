@@ -1,0 +1,29 @@
+- content_for :header do
+	All User Types
+
+.roundedcorners
+	%table
+		%tr.tablehead
+			%td User Type
+			%td Description
+			%td Configure
+
+		- @utypes.each do |utype| 
+			%tr{ :class => cycle('dark', '') }
+				%td=h utype.usertype 
+				%td=h utype.description
+				%td.visual
+					%ul
+						%li.pen= link_to '', edit_utype_path(utype) 
+						%li.red-ex= link_to '', utype, :confirm => 'Do you really want to delete this user type?', :method => :delete 
+				
+	.round-lt
+	.round-lb
+	.round-rt
+	.round-rb
+
+.apply
+	
+%br/
+
+= link_to 'New User Type', new_utype_path

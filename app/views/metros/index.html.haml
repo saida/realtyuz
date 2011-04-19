@@ -1,0 +1,22 @@
+%h1 Listing metros
+
+%table
+	%tr
+		- ["Name", "Region", "City", "District"].each do |s|
+			%th= s
+
+	- @metros.each do |metro| 
+		%tr
+			%td=h metro.name
+			%td=h metro.region.region_name
+			%td=h metro.city.city_name
+			%td
+				- if metro.district
+					=h metro.district.district_name
+			%td= link_to 'Show', metro
+			%td= link_to 'Edit', edit_metro_path(metro) 
+			%td= link_to 'X', metro, :confirm => 'Do you really want to delete this metro?', :method => :delete
+
+%br/
+
+= link_to 'New metro', new_metro_path 

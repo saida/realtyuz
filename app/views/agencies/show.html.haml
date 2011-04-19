@@ -1,0 +1,59 @@
+- content_for :header do
+	= @agency.agency_name
+
+%p
+	- if @agency.photo?
+		= image_tag @agency.photo.url(:large)
+
+%p
+	%b Name:
+	=h @agency.agency_name 
+
+%p
+	%b Phone 1:
+	=h @agency.phone1 
+
+- if @agency.phone2 != ''
+	%p
+		%b Phone 2:
+		=h @agency.phone2
+
+- if @agency.fax != ''
+	%p
+		%b Fax:
+		=h @agency.fax 
+
+%p
+	%b Email:
+	=h @agency.email 
+
+%p
+	%b Website:
+	=h @agency.website 
+
+%p
+	%b Contact First Name:
+	=h @agency.contact_fname 
+
+%p
+	%b Contact Last Name:
+	=h @agency.contact_lname 
+
+- if @agency.region
+	%p
+		%b Region:
+		=h @agency.region.region_name
+
+- if @agency.city
+	%p
+		%b City:
+		=h @agency.city.city_name
+
+- if @agency.district
+	%p
+		%b District:
+		=h @agency.district.district_name
+
+= link_to 'Edit', edit_agency_path(@agency)
+|
+= link_to 'Back', agencies_path 

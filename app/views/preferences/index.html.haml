@@ -1,0 +1,48 @@
+.clear
+
+#main
+	%h1 List of Preferences
+	- @preferences.each do |p|
+		%ul{:class => "listing", :id => "property_#{p.id}"}
+			%li
+				.listinfo
+					- if p.account && p.account.user && p.account.user.photo?
+						= link_to image_tag(p.account.user.photo.url(:large), :width => 85, :class => "listingimage"), :controller => 'realestate', :action => 'show_user', :id => p.account.id
+					- else
+						= image_tag "user_default.jpg", :class => "listingimage"
+					By:
+					- if p.account
+						=h link_to p.account.login.to_s, :controller => 'realestate', :action => 'show_user', :id => p.account.id
+					%h3
+						%br/
+						=h p.ptype && p.ptype.ptype_name
+						=h p.room && p.room.name
+
+					%p
+						=h p.region && p.region.region_name
+						=h p.city && p.city.city_name
+						=h p.district && p.district.district_name
+						%br/
+						=h p.minarea && ("from " + p.minarea.to_s)
+						=h p.maxarea && (" to " + p.maxarea.to_s)
+						%br/
+						=h p.material && p.material.name
+						
+						=h p.floor && "Floor: " + p.floor.to_s
+						=h p.floors && " of " + p.floors.to_s + " floors "
+
+					%span.price
+						= p.minprice && ("min. price: " + currencify(p.minprice))
+						%br/
+						=  p.maxprice && (" max. price: " + currencify(p.maxprice))
+				
+				.listingbtns
+					%span.listbuttons= link_to "View Details", p
+					- if p.account
+						%span.listbuttons= link_to "Contact Requester", :controller => 'realestate', :action => 'show_user', :id => p.account.id
+					- if p.user_id == current_account.id || current_account.has_role?("administrator")
+						%span.listbuttons= link_to "Modify", edit_preference_path(p)
+						%span.listbuttons= link_to "Delete", p, :confirm => 'Do you really want to delete this preference?', :method => :delete
+				
+				.clear
+	=h link_to 'Add Preference', new_preference_path

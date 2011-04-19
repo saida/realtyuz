@@ -1,0 +1,34 @@
+- content_for :header do
+	All Articles
+
+.roundedcorners
+	%table 
+		%tr.tablehead
+			%td Account
+			%td Category
+			%td Title
+			%td Content
+			%td Configure
+
+		- @articles.each do |article| 
+			%tr{:class => cycle('dark', '')}
+				%td
+					- if article.account
+						=h article.account.login.capitalize
+				%td=h article.art_category.name
+				%td=h article.title
+				%td= first_x_words(article.content)
+				%td.visual
+					%ul
+						%li.set= link_to '', article
+						%li.pen= link_to '', edit_article_path(article) 
+						%li.red-ex= link_to '', article, :confirm =>	'Do you really want to delete this article?', :method => :delete
+	.round-lt
+	.round-lb
+	.round-rt
+	.round-rb
+
+	
+%br/
+
+= link_to 'Create article', new_article_path 

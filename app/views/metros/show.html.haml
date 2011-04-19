@@ -1,0 +1,20 @@
+%p 
+	%b Name:
+	=h @metro.name
+
+%p
+	%b Region:
+	=h @metro.region.region_name
+
+%p
+	%b City:
+	=h @metro.city.city_name
+
+- if @metro.district
+	%p 
+		%b District:
+		=h @metro.district.district_name
+
+= link_to 'Edit', edit_metro_path(@metro)
+|
+= link_to 'Back', metros_path

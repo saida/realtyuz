@@ -1,0 +1,35 @@
+#items= render :partial => 'items'
+
+- content_for :header do
+	New User
+
+.clear
+
+#main
+	%h1 Create Account
+	%br/
+	#update
+		- semantic_form_for @user, :html => { :multipart => true } do |f|
+			= f.error_messages
+	
+			- f.inputs do
+				= f.input :utype, :as => :radio, :collection => @utypes
+		
+				- if @user.utype_id != (1 or 5)		
+					= f.input :cotitle, :required => false
+					= f.input :agency, :collection => @agencies, :required => false
+				= f.input :fname, :required => false
+				= f.input :lname, :required => false
+				= f.input :mobphone, :required => false
+				= f.input :workphone, :required => false
+				= f.input :website, :required => false
+				= f.input :user, :label => 'Broker', :collection => @brokers, :required => false
+				= f.input :photo, :as => :file, :required => false
+				= f.input :email
+		
+			= render :partial => 'account', :locals => { :form => f, :account => @user.accounts.build }
+
+			- f.buttons do
+				= f.commit_button 'Register' 
+
+	= link_to 'All Users', users_path, :layout => params[:layout]

@@ -1,0 +1,16 @@
+%h1 Listing No of Rooms
+
+%table
+	%tr
+		%th Name
+
+	-	@rooms.each do |room| 
+		%tr
+			%td=h room.name 
+			%td= link_to 'Show', room 
+			%td= link_to 'Edit', edit_room_path(room) 
+			%td= link_to 'Destroy', room, :confirm => 'Do you really want to delete this no of room?', :method => :delete 
+
+%br/
+
+= link_to 'New Type', new_room_path

@@ -1,0 +1,7 @@
+#account
+	- form.semantic_fields_for :accounts, account do |a|
+		- account.email = @user.email
+		- a.inputs do
+			= a.input :login
+			= a.input :password, :as => :password
+			= a.input :password_confirmation, :as => :password, :label => "Confirm"

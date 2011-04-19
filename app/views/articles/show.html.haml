@@ -1,0 +1,31 @@
+- content_for :header do
+	= "Article #" + @article.id.to_s
+.clear
+#main
+	%p
+		Category:
+		= link_to @article.art_category.name, articles_path(:acategory_id => @article.art_category.id)
+	%br/
+	%ul.listing
+		%li
+			.listinfo{:style => "width:520px;"}
+				%p
+					%h2{:align => :center, :style => 'margin:10px;'}=h @article.title 
+
+				%p= @article.content
+
+				%p
+					%b Created by:
+					=h @article.account.login.upcase
+					%br/
+					%b Created at:
+					=h @article.created_at.strftime("%e %b at %I:%M%p") # http://www.ruby-doc.org/core/classes/Time.html
+				
+			.clear
+	%br/
+	= link_to 'Edit', edit_article_path(@article, :layout => @layout)
+	|
+	- if @layout
+		= link_to 'All Articles', :controller => 'realestate', :action => 'show_articles'		
+	- else
+		= link_to 'All Articles', articles_path	

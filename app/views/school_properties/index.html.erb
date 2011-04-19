@@ -1,0 +1,26 @@
+<h1>Listing school_properties</h1>
+
+<table>
+  <tr>
+    <th>School</th>
+    <th>Property</th>
+    <th>Transport</th>
+    <th>Minutes</th>
+  </tr>
+
+<% @school_properties.each do |school_property| %>
+  <tr>
+    <td><%=h school_property.school_id %></td>
+    <td><%=h school_property.property_id %></td>
+    <td><%=h school_property.transport_id %></td>
+    <td><%=h school_property.minutes %></td>
+    <td><%= link_to 'Show', school_property %></td>
+    <td><%= link_to 'Edit', edit_school_property_path(school_property) %></td>
+    <td><%= link_to 'Destroy', school_property, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New school_property', new_school_property_path %>

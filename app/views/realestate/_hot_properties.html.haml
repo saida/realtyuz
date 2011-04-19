@@ -1,0 +1,28 @@
+%h2.sidebar_head
+	%span.h2link=h link_to_remote "View More", :url => {:controller => 'realestate', :action => 'search_results'}
+	Hot Properties
+
+- @properties[0..2].each do |p|
+	%ul
+		%li
+			%span.imageholder
+				- if p.assets.first.nil?
+					= link_to image_tag("default_house.jpg", :size => "64x64", :class => "listingimage"), :action => 'show_property', :id => p.id
+				- else
+					- asset = p.assets.first
+					= link_to image_tag(asset.url(:tiny), :size => "64x64", :class => "listingimage"), :action => 'show_property', :id => p.id
+			
+			%h3
+				- if p.room
+					=h p.room.name
+				=h p.ptype.ptype_name
+
+			%p.description
+				- if p.district
+					=h p.district.district_name
+				=h p.city.city_name + ","
+				=h p.region.region_name
+
+				%span.price= currencify(p.price)
+			
+			.clear

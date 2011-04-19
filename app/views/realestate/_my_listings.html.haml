@@ -1,0 +1,12 @@
+- hidden_div_if(@my_listings.my_listings_properties.empty?, :id => "inner_my_listings", :class => "hot") do
+	%h2.sidebar_head
+		My Favorites
+		%span.h2link=h link_to_remote "Clear", :url => {:action => :clear_my_listings}
+
+	%table
+		#listing= render(:partial => "my_listings_listing", :object => @listings)
+		
+		%tr
+			%td
+				- if @listings
+					= will_paginate @listings, :class => 'pagination ajax', :param_name => "set2_page", :params => {:action => 'index'}

@@ -1,0 +1,10 @@
+%h1	
+	Roles for
+	=h @account.login.capitalize
+%h3 Roles assigned:
+%ul= render :partial => 'role', :collection => @account.roles
+%h3 Roles available:
+%ul= render :partial => 'role', :collection => @available_roles
+
+%br/
+= link_to "Back to Accounts", accounts_path

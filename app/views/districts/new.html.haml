@@ -1,0 +1,25 @@
+- content_for :header do
+	New District
+
+- form_for(@district) do |f|
+
+	.inp-text
+		%table
+			%tr
+				%td= f.label :city_id 
+				%td= f.select :city_id, City.all.collect {|c| [c.city_name, c.id]}, {:prompt => "- Select a city -"}
+				%td
+					- hidden_div_if(@district.errors[:city_id] == '', :class => 'error message') do
+						= error_message_on(@district, :city_id) 
+						
+			%tr
+				%td= f.label 'District'
+				%td= f.text_field :district_name
+				%td
+					- hidden_div_if(@district.errors[:district_name] == '', :class => 'error message') do
+						= error_message_on(@district, :district_name)
+	
+			%tr
+				%td{:colspan => 2, :align => :center}
+					= f.submit 'Create'
+					= link_to 'Back', districts_path

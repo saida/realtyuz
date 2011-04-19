@@ -1,0 +1,45 @@
+#items= render :partial => 'items'
+
+- content_for :header do
+	Edit User
+
+#update
+	- semantic_form_for @user, :html => { :multipart => true } do |f|
+		= f.error_messages
+	
+		- unless @user.new_record? || !@user.photo?
+			#photo
+				= image_tag @user.photo.url(:large), :alt => 'Photo', :title => 'Current photo'
+				%br/
+				= f.check_box :delete_photo
+				= f.label :delete_photo, 'Delete photo'
+				%br/
+				%span#link_to_change= link_to_remote "Change photo", :url => {:action => "change_photo", :id => @user.id}
+				%span#change_photo
+
+		- f.inputs do
+			= f.input :utype, :as => :radio, :collection => @utypes
+
+			- if @user.utype_id != (1 or 5)		
+				= f.input :cotitle, :required => false
+			= f.input :fname, :required => false
+			= f.input :lname, :required => false
+			= f.input :mobphone, :required => false
+			= f.input :workphone, :required => false
+			= f.input :website, :required => false
+			= f.input :user, :label => 'Broker', :collection => @brokers, :required => false
+			- if @user.new_record? || !@user.photo?
+				= f.input :photo, :as => :file, :required => false
+			= f.input :email
+
+		- if @user.accounts.empty?
+			= render :partial => 'account', :locals => { :form => f, :account => @user.accounts.build }
+		- else
+			= render :partial => 'account', :locals => { :form => f, :account => @user.accounts.first }
+
+		- f.buttons do
+			= f.commit_button 'Update'
+	
+= link_to 'Show', @user
+|
+= link_to 'Back', users_path 

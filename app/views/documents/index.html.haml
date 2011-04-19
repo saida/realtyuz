@@ -1,0 +1,19 @@
+%h1 Listing documents
+
+- if current_account && [1,2,3,4].include?(current_account.user.utype.id)
+  %p= link_to 'New document', new_document_path
+  %br/
+
+- if @documents.length > 0
+  %table{ :width => "100%" }
+    %tr
+      %th Title
+      %th Description
+    - @documents.each do |document|
+      %tr
+        %td= h document.title
+        %td= h document.description
+        %td= link_to 'Download', document
+        - if current_account && document.account_id == current_account.id
+          /%td= link_to 'Edit', edit_document_path(document)
+          %td= link_to 'Destroy', document, :confirm => 'Are you sure?', :method => :delete

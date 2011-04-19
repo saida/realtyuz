@@ -1,0 +1,61 @@
+﻿.main {
+    min-width:1000px;
+    width:expression(document.body.clientWidth > 1000 ? "100%" : "1000px");
+}
+*html .main-enter h1 a,
+*html .sidebar h1 a {
+	background:url(none.gif);
+	filter:progid:dximagetransform.microsoft.alphaimageloader(src='images/logo.png', sizingmethod='crop') no-repeat;
+}
+*html .varn {
+	background:url(none.gif);
+	filter:progid:dximagetransform.microsoft.alphaimageloader(src='images/varn.png', sizingmethod='crop') no-repeat;
+	padding-top:14px;
+	height:30px;
+}
+*html ul.accordion li a {
+	background-image: url(../images/menu-off.gif);
+}
+*html ul.accordion li.active a,
+*html ul.accordion li a:hover {
+	background-image: url(../images/menu-on.gif);
+}
+img, .png{
+position:relative;
+behavior: expression((this.runtimeStyle.behavior="none")&&(this.pngSet?this.pngSet=true:(this.nodeName == "IMG" && this.src.toLowerCase().indexOf('.png')>-1?(this.runtimeStyle.backgroundImage = "none",
+this.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + this.src + "', sizingMethod='image')",
+this.src = "images/transparent.gif"):(this.origBg = this.origBg? this.origBg :this.currentStyle.backgroundImage.toString().replace('url("','').replace('")',''),
+this.runtimeStyle.filter = "progid:DXImageTransform.Microsoft.AlphaImageLoader(src='" + this.origBg + "', sizingMethod='crop')",
+this.runtimeStyle.backgroundImage = "none")),this.pngSet=true)
+);
+}
+*html .visual ul li.pen a {
+	background:url(none.gif);
+	filter:progid:dximagetransform.microsoft.alphaimageloader(src='images/pen.png', sizingmethod='crop') no-repeat;
+}
+*html .visual ul li.pen a:hover {
+	background:url(none.gif);
+	filter:progid:dximagetransform.microsoft.alphaimageloader(src='images/pen-on.png', sizingmethod='crop') no-repeat;
+}
+*html .visual ul li.red-ex a {
+	background:url(none.gif);
+	filter:progid:dximagetransform.microsoft.alphaimageloader(src='images/red-ex.png', sizingmethod='crop') no-repeat;
+}
+*html .visual ul li.red-ex a:hover {
+	background:url(none.gif);
+	filter:progid:dximagetransform.microsoft.alphaimageloader(src='images/red-ex-on.png', sizingmethod='crop') no-repeat;
+}
+*html .visual ul li.set a {
+	background:url(none.gif);
+	filter:progid:dximagetransform.microsoft.alphaimageloader(src='images/set.png', sizingmethod='crop') no-repeat;
+}
+*html .visual ul li.set a:hover {
+	background:url(none.gif);
+	filter:progid:dximagetransform.microsoft.alphaimageloader(src='images/set-on.png', sizingmethod='crop') no-repeat;
+}
+*html .round-rb {
+	bottom:-8px;
+}
+*html .round-lb {
+	bottom:-8px;
+}

@@ -1,0 +1,28 @@
+- if @listings
+	- @listings.each do |listing|
+		%ul
+			%li
+				%div{:id => "listing_#{listing.property_id}"}
+					%span.imageholder
+						- if listing.property.assets.first.nil?
+							= link_to image_tag("default_house.jpg", :size => "64x64", :class => "listingimage"), :action => 'show_property', :id => listing.property.id
+						- else
+							- asset = listing.property.assets.first
+							= link_to image_tag(asset.url(:tiny), :size => "64x64", :class => "listingimage"), :action => 'show_property', :id => listing.property.id
+
+					%h3
+						= listing.room
+						= listing.ptype
+	
+					.remove= link_to_remote "Remove", :url => {:action => "remove_from_my_listings", :id => @my_listings.id, :property_id => listing.property_id}
+					
+					%p.description
+						- if listing.district
+							=h listing.district
+						=h listing.city + ","
+						=h listing.region
+					
+						%span.price=h currencify(listing.price)
+					
+
+					.clear

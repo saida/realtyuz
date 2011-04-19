@@ -1,0 +1,61 @@
+#items= render :partial => 'items'
+
+- content_for :header do
+	Edit Property
+
+#update
+	- semantic_form_for @property, :html => {:multipart => :true} do |f|
+
+		- unless @property.new_record? || @property.assets.empty?
+			= f.label "Photos"
+
+			%table
+				%tr
+					- @property.assets.each do |asset|
+						%td
+							%div{:class => "photo", :id =>"photo_#{asset.id}"}
+								= link_to image_tag(asset.url(:small)), asset.url(:large)
+								%br/
+								= link_to_remote "Delete", :url => { :action => 'delete_asset', :id => @property.id, :asset_id => asset.id }
+
+			= add_object_link 'Add more photo', 'photos', :partial => 'form', :locals => { :f => f, :asset => @property.assets.build }
+			#photos
+
+		- f.inputs do
+			= f.input :category, :as => :radio
+			= f.input :ptype, :collection => @ptypes, :prompt => "- Select Property Type -"
+			#regions
+				%li
+					= f.label :region_id
+					= f.select(:region_id, @regions, {:prompt => "- Select Region -"}, {:onChange => remote_function(:url => {:action => "update_cities"}, :with => "'region_id='+value")})
+			#cities= render :partial => 'cities'
+			#districts= render :partial => 'districts'
+			= f.input :address, :input_html => {:rows => 3}
+
+			- f.semantic_fields_for :metro_properties do |mf|
+				= mf.input :metro, :collection => @metros, :prompt => "- Select Metro -", :required => false
+				= mf.input :transport, :collection => @transports, :prompt => "- Select Transport to Metro -", :required => false
+				= mf.input :minutes, :as => :numeric, :required => false
+
+			- f.semantic_fields_for :school_properties do |sf|
+				= sf.input :school, :collection => @schools, :prompt => "- Select School -", :required => false
+				= sf.input :transport, :collection => @transports, :prompt => "- Select Transport to School -", :required => false
+				= sf.input :minutes, :as => :numeric, :required => false
+
+			= f.input :area, :required => false
+			= f.input :material, :collection => @materials, :prompt => "- Select Material Type -", :required => false
+			= f.input :room, :label => 'Rooms', :collection => @rooms, :prompt => "- Select No of Rooms -", :required => false
+			= f.input :floor, :as => :numeric, :required => false
+			= f.input :floors, :as => :numeric, :required => false
+			= f.input :description, :input_html => { :rows => 5, :cols => 10, :maxlength => 10	}, :required => false
+			= f.input :price, :as => :numeric
+
+			
+			- if @property.new_record? || @property.assets.empty?
+				#photos= render :partial => 'form', :locals => { :f => f, :asset => 3.times {@property.assets.build} }
+
+		= f.buttons
+
+= link_to 'Show this listing', @property
+|
+= link_to 'Back to all listings', properties_path

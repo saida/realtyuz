@@ -1,0 +1,68 @@
+#main
+	%h1 
+		Preference # 
+		=h @preference.id
+
+	%p
+		%b Category:
+		=h @preference.category && @preference.category.name
+
+	%p
+		%b Type:
+		=h @preference.ptype && @preference.ptype.ptype_name
+
+	%p
+		%b Requester:
+		- if @preference.account && @preference.account.user
+			= link_to @preference.account.user.fname + " " + @preference.account.user.lname, user_path(@preference.account.user_id)
+		- else
+			= link_to @preference.account.login, :controller => 'users', :action => 'show', :id => @preference.user_id, :layout => 'realestate'
+
+	%p
+		%b Region:
+		=h @preference.region && @preference.region.region_name
+
+	%p
+		%b City:
+		=h @preference.city && @preference.city.city_name
+
+	- if @preference.district
+		%p
+			%b District:
+			=h @preference.district.district_name
+		
+	%p
+		%b Area from:
+		=h @preference.minarea 
+		%b to:
+		=h @preference.maxarea 
+
+	%p
+		%b Material:
+		=h @preference.material && @preference.material.name
+
+	%p
+		%b Rooms:
+		=h @preference.room && @preference.room.name
+
+	%p
+		%b Floor:
+		=h @preference.floor
+
+	%p
+		%b Floors:
+		=h @preference.floors 
+
+	%p
+		%b Description:
+		=h @preference.description 
+
+	%p
+		%b Price: 
+		=h @preference.minprice && ("from " + currencify(@preference.minprice))
+		=h @preference.maxprice && (" to " + currencify(@preference.maxprice))
+
+	%br/
+	= link_to 'Edit', edit_preference_path(@preference)
+	|
+	= link_to 'All Preferences', preferences_path

@@ -1,0 +1,19 @@
+.clear
+
+#main
+	#show-account
+		%h1 Account Information
+		%p 
+			Name:
+			=h @account.user.fname + " " + @account.user.lname
+		%p
+			User:
+			=h @account.login
+		%p
+			Email:
+			=h @account.email
+			= link_to_remote_redbox 'Change', :url => {:controller => 'accounts', :action => 'edit', :id => 'edit', :layout => 'account'}
+		%p
+			Joined on:
+			= @account.created_at.to_s(:long)
+		%br/

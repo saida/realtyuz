@@ -1,0 +1,60 @@
+- content_for :header do
+	New Agency
+
+- form_for @agency, :html => {:multipart => true} do |f| 
+	= f.error_messages
+	
+	.inp-text
+		%table
+			%tr
+				%td= f.label "Name" 
+				%td= f.text_field :agency_name 
+	
+			%tr
+				%td= f.label :phone1 
+				%td= f.text_field :phone1 
+	
+			%tr
+				%td= f.label :phone2
+				%td= f.text_field :phone2 
+	
+			%tr
+				%td= f.label :fax
+				%td= f.text_field :fax 
+	
+			%tr
+				%td= f.label :email 
+				%td= f.text_field :email 
+	
+			%tr
+				%td= f.label :website 
+				%td= f.text_field :website 
+	
+			%tr
+				%td= f.label "First Name" 
+				%td= f.text_field :contact_fname 
+	
+			%tr
+				%td= f.label "Last Name" 
+				%td= f.text_field :contact_lname 
+	
+			%tr
+				%td= f.label :region_id 
+				%td= f.select(:region_id, @regions, {:prompt => "- Select Region -"}, {:onChange => remote_function(:url => {:action => "update_cities"}, :with => "'region_id='+value")})
+	
+			%tr
+				%td= f.label :city_id
+				%td#cities= render :partial => 'cities', :object => @cities
+	
+			%tr
+				%td= f.label :district_id
+				%td#districts= render :partial => 'districts', :object => @districts
+		
+			%tr
+				%td= f.label :photo
+				%td= f.file_field :photo
+		
+			%tr
+				%td{:colspan => 2, :align => :center}= f.submit 'Create'
+
+= link_to 'Back', agencies_path

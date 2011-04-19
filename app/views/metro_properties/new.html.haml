@@ -1,0 +1,29 @@
+%h1 New metro property
+
+- form_for(@metro_property) do |f| 
+	= f.error_messages
+
+	%p
+		= f.label :metro_id
+		%br/
+		= f.select(:metro_id, @metros, {:prompt => "- Select Metro -"})
+	
+	%p
+		= f.label :property_id
+		%br/
+		= f.select(:property_id, @properties, {:prompt => "- Select a Property -"})
+	
+	%p
+		= f.label :transport_id 
+		%br/
+		= f.select(:transport_id, @transports, {:prompt => "- Select Transport Type -"})
+	
+	%p
+		= f.label :minutes 
+		%br/
+		= f.text_field :minutes
+	
+	%p
+		= f.submit 'Create'
+
+= link_to 'Back', metro_properties_path 

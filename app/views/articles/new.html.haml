@@ -1,0 +1,14 @@
+- content_for :header do
+	Create Article
+
+- semantic_form_for @article do |f|
+
+	- f.inputs do
+		= f.input :title
+		= f.input :art_category, :label => 'Category'
+	
+	= simple_format(f.text_area :content, :class => "mceEditor")
+	%br/
+	= f.buttons
+		
+= link_to 'Back', articles_path 

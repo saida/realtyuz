@@ -1,0 +1,28 @@
+<h1>Editing school_property</h1>
+
+<% form_for(@school_property) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :school_id %><br />
+    <%= f.text_field :school_id %>
+  </p>
+  <p>
+    <%= f.label :property_id %><br />
+    <%= f.text_field :property_id %>
+  </p>
+  <p>
+    <%= f.label :transport_id %><br />
+    <%= f.text_field :transport_id %>
+  </p>
+  <p>
+    <%= f.label :minutes %><br />
+    <%= f.text_field :minutes %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @school_property %> |
+<%= link_to 'Back', school_properties_path %>

@@ -1,0 +1,16 @@
+<h1>Editing art_category</h1>
+
+<% form_for(@art_category) do |f| %>
+  <%= f.error_messages %>
+
+  <p>
+    <%= f.label :name %><br />
+    <%= f.text_area :name %>
+  </p>
+  <p>
+    <%= f.submit 'Update' %>
+  </p>
+<% end %>
+
+<%= link_to 'Show', @art_category %> |
+<%= link_to 'Back', art_categories_path %>

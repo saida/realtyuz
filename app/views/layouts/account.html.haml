@@ -1,0 +1,8 @@
+!!!
+%html
+	%head
+		%title Real Estate
+		= stylesheet_link_tag 'overlay','formtastic', 'formtastic_changes', 'redbox', :cache => 'base'
+		= javascript_include_tag :defaults, 'prototype', 'redbox'
+	%body
+		= yield :layout

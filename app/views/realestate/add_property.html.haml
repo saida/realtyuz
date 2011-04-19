@@ -1,0 +1,65 @@
+- content_for :sidebar do
+	- unless @map.nil?
+		.block
+			= @map.div(:width => 390, :height => 390)
+			:javascript
+				var map;
+				window.onload = addCodeToFunction(window.onload,function() {
+					if (GBrowserIsCompatible()) {
+						map = new GMap2(document.getElementById("map"));
+						map.setCenter(new GLatLng(41.31082388091818, 69.27909851074219), 12);map.addControl(new GLargeMapControl());
+						map.addControl(new GMapTypeControl());
+					}
+					var marker = new GMarker(map.getCenter(), {draggable: true});
+					GEvent.addListener(marker, "dragend", function() { var p = marker.getPoint(); $('property_latitude').value = p.lat(); $('property_longitude').value = p.lng() });
+					map.addOverlay(marker);
+				});
+
+.clear
+
+#main
+	%h1 Add Property
+	%br/
+	- semantic_form_for @property, :html => {:multipart => :true} do |f|
+		= f.hidden_field :longitude
+		= f.hidden_field :latitude
+
+		- f.inputs do
+			= f.input :category, :as => :radio
+			= f.input :ptype, :collection => @ptypes, :prompt => "- Select Property Type -"
+			#regions
+				%li
+					= f.label :region_id
+					= f.select(:region_id, @regions, {:prompt => "- Select Region -"}, {:onChange => remote_function(:url => {:action => "update_cities", :type => 2}, :with => "'region_id='+value")})
+			%li#cities{:style => "display:none;"}
+			%li#districts{:style => "display:none;"}
+			= f.input :address, :input_html => {:rows => 3}
+
+			- f.semantic_fields_for :metro_properties do |mf|
+				= mf.input :metro, :collection => @metros, :prompt => "- Select Metro -", :required => false
+				= mf.input :transport, :collection => @transports, :prompt => "- Select Transport to Metro -", :required => false
+				= mf.input :minutes, :as => :numeric, :required => false
+
+			- f.semantic_fields_for :school_properties do |sf|
+				= sf.input :school, :collection => @schools, :prompt => "- Select School -", :required => false
+				= sf.input :transport, :collection => @transports, :prompt => "- Select Transport to School -", :required => false
+				= sf.input :minutes, :as => :numeric, :required => false
+
+			= f.input :area, :required => false, :label => "Area (square meters)"
+			= f.input :material, :collection => @materials, :prompt => "- Select Material Type -", :required => false
+			= f.input :room, :label => 'Rooms', :collection => @rooms, :prompt => "- Select No of Rooms -", :required => false
+			= f.input :floor, :required => false
+			= f.input :floors, :required => false
+			= f.input :description, :input_html => { :rows => 5, :cols => 100 }, :required => false
+			= f.input :price, :as => :numeric
+
+			#photos= render :partial => 'form', :locals => { :f => f, :asset => 3.times {@property.assets.build} }
+
+			- PROPERTIES.each do |k, v|
+				%p
+					= check_box_tag "c_#{k}", :id => "c_#{k}"
+					%label{ :for => "c_#{k}" }= h v
+
+		= f.buttons
+
+		= hidden_field_tag 'adding', true

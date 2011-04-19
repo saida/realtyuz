@@ -1,0 +1,31 @@
+- content_for :header do
+	All Cities
+
+.roundedcorners
+	%table
+		%tr.tablehead
+			%td Region
+			%td City
+			%td Configure
+		%tr
+			%td= link_to 'Add Region', new_region_path
+			%td= link_to 'Add City', new_city_path
+			%td
+		- @cities.each do |city|
+			%tr
+				%td=h city.region.region_name
+				%td=h city.city_name
+				%td.visual
+					%ul
+						%li.pen= link_to '', edit_city_path(city)
+						%li.red-ex= link_to '', city, :confirm => 'Are you sure?', :method => :delete
+
+		%tr
+			%td= link_to 'Add Region', new_region_path
+			%td= link_to 'Add City', new_city_path
+			%td
+	.round-lt
+	.round-lb
+	.round-rt
+	.round-rb
+.apply

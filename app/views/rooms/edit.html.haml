@@ -1,0 +1,15 @@
+%h1 Editing No of Rooms
+
+- form_for(@room) do |f| 
+	= f.error_messages 
+
+	%p
+		= f.label :name 
+		%br/
+		= f.text_field :name 
+	%p
+		= f.submit 'Update'
+
+= link_to 'Show', @room
+|
+= link_to 'Back', rooms_path

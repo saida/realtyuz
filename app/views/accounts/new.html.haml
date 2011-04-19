@@ -1,0 +1,55 @@
+- content_for :head do
+	= javascript_include_tag "http://api.recaptcha.net/js/recaptcha_ajax.js"
+	
+	:javascript
+		Recaptcha.create('6LflT8MSAAAAAGATp32oJ8GbNck-QtdV5AdQ1sIP', document.getElementById('dynamic_recaptcha') , '')
+		var RecaptchaOptions = { theme: 'custom' };
+.clear
+
+#main{:style => "background-color:#DDFFDD;"}
+	%h1{:style => "background:none; background-color:#AAFFAA;"} Create Account
+	
+	#signup-form{:style => "width:300px; margin-left:100px;"}
+		- @account.password = @account.password_confirmation = nil
+
+		- semantic_form_for :account, :url => accounts_path, :html => {:multipart => true} do |f|
+			= f.error_messages
+			%br/
+			
+			= render :partial => 'user', :locals => { :form => f, :user => @user }
+			- f.inputs do
+				= f.input :login, :label => 'Username'
+				= f.input :email
+				= f.input :password, :type => :password, :hint => 'more than 5 characters'
+				= f.input :password_confirmation, :type => :password, :label => 'Confirm'
+			
+			/= recaptcha_tags
+			
+			// http://eisabainyo.net/weblog/2009/07/23/customising-recaptcha-theme/
+			#recaptcha_container
+				%table
+					%tr
+						%td
+							#recaptcha_image
+						%td
+							= link_to_function image_tag("reload.png", :width => "40px"), "Recaptcha.reload();", :html => {:id => "recaptcha_reload_btn"}
+				%br/
+				/Choose captcha format:
+				/%a{:href=>"javascript:Recaptcha.switch_type('image');"}
+				/	Image
+				/|
+				/%a{:href=>"javascript:Recaptcha.switch_type('audio');"}
+				/	Audio
+				/|
+				%label Enter the Text*
+				= text_field_tag :recaptcha_response_field, :id => 'recaptcha_response_field', :class => "text"
+				%br/
+			%script{:type=>"text/javascript", :src=>"http://api.recaptcha.net/challenge?k=6LflT8MSAAAAAGATp32oJ8GbNck-QtdV5AdQ1sIP"}
+
+			%noscript
+				%iframe{:src=>"http://api.recaptcha.net/noscript?k=6LflT8MSAAAAAGATp32oJ8GbNck-QtdV5AdQ1sIP", :height=>"200", :width=>"350", :frameborder=>"0"}
+				%textarea{:name=>"recaptcha_challenge_field", :rows=>"3", :cols=>"30"}
+				%input{:type=>"hidden", :name=>"recaptcha_response_field", :value=>"manual_challenge"}/
+			%br/
+			- f.buttons do
+				= f.commit_button 'Sign Up'

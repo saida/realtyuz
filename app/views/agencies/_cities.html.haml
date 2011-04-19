@@ -1,0 +1,1 @@
+= select(:agency, :city_id, @cities, {:prompt => "- Select City -"}, {:onChange => remote_function(:url => {:action => "update_districts"}, :with => "'city_id='+ value")})

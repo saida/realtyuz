@@ -1,0 +1,5 @@
+%label District
+- if params[:type] == 1
+	= collection_select(nil, :district_id, districts, :id, :district_name, {:prompt => "- all -"}, {:class => "select_field"})
+- else
+	= collection_select(nil, "property[district_id]", districts, :id, :district_name, {:prompt => "- all -"}, {:class => "select_field"})

@@ -1,0 +1,19 @@
+%p
+  %b Metro:
+  =h @metro_property.metro.name
+
+%p
+  %b Property:
+  =h @metro_property.property.name 
+
+%p
+  %b Transport:
+  =h @metro_property.transport.name
+
+%p
+  %b Minutes:
+  =h @metro_property.minutes
+
+= link_to 'Edit', edit_metro_property_path(@metro_property)
+|
+= link_to 'Back', metro_properties_path 

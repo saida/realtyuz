@@ -1,0 +1,20 @@
+<h1>Listing art_categories</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+  </tr>
+
+<% @art_categories.each do |art_category| %>
+  <tr>
+    <td><%=h art_category.name %></td>
+    <td><%= link_to 'Show', art_category %></td>
+    <td><%= link_to 'Edit', edit_art_category_path(art_category) %></td>
+    <td><%= link_to 'Destroy', art_category, :confirm => 'Are you sure?', :method => :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New art_category', new_art_category_path %>

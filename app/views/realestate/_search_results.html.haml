@@ -1,0 +1,60 @@
+- content_for :head do
+	%title Real Estate | Search Results
+	= javascript_include_tag 'js/jquery.js'
+	:javascript
+		$(document).ready(function () {
+		    $('#searchdiv').hide();
+		    $('a').click(function () {
+		        $('#searchdiv').fadeIn('slow');
+		    });
+		    $('a#close').click(function () {
+		        $('#searchdiv').fadeOut('slow');
+		    })
+		});
+		
+.clear#topcategorieslink
+	%h2 Filter Results
+	%ul
+		%li=h link_to_remote "By Price", :url => {:action => 'index'}
+		%li=h link_to_remote "By Date", :url => {:action => 'index'}
+		%li=h link_to_remote "By Relevance", :url => {:action => 'index'}
+		%li=h link_to_remote "Create Alerts", :url => {:controller => 'realestate', :action => 'index'}, :html => {:class => "highlight"}
+		%li=h link_to_remote "Back To Results", :url => {:controller => 'realestate', :action => 'search_results'}, :html => {:class => "highlight"}
+
+	.clear
+
+#results
+	%h1=	@properties.count.to_s + " Listings Found"
+	- @properties.each do |p|
+		%div{:class => "listing", :id => "property_#{p.id}"}
+			- if p.assets.first.nil?
+				= image_tag("default_house.jpg", :size => "70x55")
+			- else
+				- asset = p.assets.first
+				= link_to image_tag(asset.url(:tiny)), :action => 'show_property', :id => p.id
+			%h3
+				=h p.ptype.ptype_name
+				- if p.room
+					=h p.room.name
+			=h p.region.region_name
+			=h p.city.city_name
+			- if p.district
+				=h p.district.district_name
+		
+			#save
+				- if !@my_listings.my_listings_properties.find(:first, :conditions => ['property_id = ?', p.id])	# if property is not in my_listings
+					- form_remote_tag :url => {:action => :add_to_my_listings, :id => @my_listings.id, :property_id => p.id} do
+						= image_submit_tag("icons/add.jpg", :class => "save-img", :id => "save-img_#{p.id}")
+			
+			%span#price= currencify(p.price)
+			
+			%br/
+			=h p.floor
+			of
+			=h p.floors
+			floors
+			%br/
+			#details= link_to "view details", :action => 'show_property', :id => p.id
+	
+	%br/
+	= will_paginate @properties, :class => 'pagination ajax'

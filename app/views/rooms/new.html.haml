@@ -1,0 +1,13 @@
+%h1 New No of Rooms
+
+- form_for(@room) do |f|
+	= f.error_messages
+
+	%p
+		= f.label 'Name'
+		%br/
+		= f.text_field :name
+	%p
+		= f.submit 'Create'
+
+= link_to 'Back', rooms_path

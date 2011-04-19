@@ -1,0 +1,18 @@
+page.select("#home_main").each do |p|
+  p.hide
+end
+page.select("#home_sidebar").each do |p|
+  p.hide
+end
+page.select("#featured_listing").each do |p|
+  p.hide
+end
+page.select("#topcategorieslink").each do |p|
+  page.replace_html 'topcategorieslink', :partial => 'topcategorieslink', :object => @properties
+end
+page.select("#search_results").each do |p|
+  p.show
+end
+page.select("#search_results").each do |p|
+  page.replace_html 'search_results', :partial => 'listings', :object => @properties
+end

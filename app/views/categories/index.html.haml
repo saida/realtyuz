@@ -1,0 +1,28 @@
+#items= render :partial => 'properties/items'
+
+- content_for :header do
+	All Categories
+
+.roundedcorners
+	%table
+		%tr.tablehead
+			%td Name
+			%td Description
+			%td Configure
+	
+		- @categories.each do |category| 
+			%tr{:class => cycle('dark', '')}
+				%td=h category.name
+				%td=h category.description 
+				%td.visual
+					%ul
+						%li.pen= link_to '', edit_category_path(category) 
+						%li.red-ex= link_to '', category, :confirm => 'Are you sure?', :method => :delete 
+	.round-lt
+	.round-lb
+	.round-rt
+	.round-rb
+
+%br/
+
+= link_to 'New category', new_category_path 

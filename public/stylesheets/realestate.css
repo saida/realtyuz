@@ -1,0 +1,373 @@
+.listing form, #realestate .listing form div {
+	display: inline;
+}
+
+#notice {
+	border: 1px solid;
+	padding: 1em;
+	width: 100%;
+	margin-bottom: 2em;
+	background-color: #f0f0f0;
+	font: bold smaller sans-serif;
+	text-align: center;
+}
+
+h1 {
+	font:  150% sans-serif;
+	color: #226;
+}
+
+img {
+	border: 0px;
+}
+
+/* An listing in realestate */
+
+.listing {
+	border-bottom: 1px dotted #77d;
+	padding-top: 10px;
+	padding-bottom: 26px;
+}
+
+.listing img {
+	width: 70px;
+	height: 55px;
+	float: left;
+	margin-right: 15px;
+}
+
+.listing h3 {
+	margin-bottom: 2px;
+	color: #227;
+}
+
+.listing .add-to-mylistings {
+	position: relative;
+}
+
+.listing #price {
+	color: #44a;
+	font-weight: bold;
+	margin-right: 10px;
+	float: right;
+}
+
+.listing #save {
+	position: relative;
+	float: right;
+	padding-right: 20px;
+}
+
+.listing .save-img {
+	width: 20px;
+}
+
+
+/* Styles for properties */
+
+#desc {
+	height: 20px;
+}
+
+/* START:mainlayout */
+/* Styles for main page */
+
+#banner {
+	background: #9c9;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	border-bottom: 2px solid;
+	font: small-caps 40px/40px "Times New Roman", serif;
+	color: #282;
+	text-align: center;
+}
+
+#banner img {
+	float: left;
+}
+
+/* #main {
+  	margin-left: 13em;
+  	padding-top: 4ex;
+  	padding-left: 8em;
+  	background: white;
+} */
+
+#side {
+	float: left;
+	padding-top: 1em;
+	padding-left: 1em;
+	padding-bottom: 1em;
+	width: 14em;
+	background: #141 ;
+}
+
+#side a {
+	color: #bfb ;
+	font-size: small;
+}
+
+/* Forms */
+
+#change-password, #edit-account, #show-account {
+	background-color: #fff;
+	width: 400px;
+	padding: 10px;
+	margin: 180px auto 0 auto;
+}
+
+#change-password fieldset {
+	width:370px;
+}
+
+#change-password fieldset table tr td {
+	text-align:right;
+}
+
+/* Register */
+
+#main-signup {
+	background-color: #fff;
+	width: 355px;
+	text-align: left;
+	margin: 170px auto 0 auto;
+	background-color:#E3F6FC;
+	border: 1px solid gray;
+}
+
+#main-signup h2, #main-login h2 {
+	font: bold 18px "Trebuchet MS", Verdana, Arial, sans-serif;
+	background:url(../images/searchbg.jpg);
+	padding:10px;
+	margin:0;
+}
+
+#signup-form, #login-form {
+	padding: 20px 30px 20px 20px;
+}
+
+/* Login */
+
+#main-login {
+	background-color: #fff;
+	text-align: left;
+	width: 260px;
+	margin: 200px auto 0 auto;
+	background-color:#E3F6FC;
+	padding-bottom:10px;
+}
+
+#login-admin {
+	margin-top: 150px;
+	margin-left: 35%;
+}
+
+#login-admin fieldset {
+	width: 240px;
+}
+
+#login-notice {
+	color: #f00;
+	padding-left: 30%;
+}
+
+.close {
+	padding-bottom: 10px;
+	float: right;
+}
+
+.close a {
+	color: #333;
+	font-weight: bold;
+	text-decoration: none;
+	padding-left: 4px;
+}
+
+.close a:hover {
+	color: #000;
+	font-weight: bold;
+	text-decoration: none;
+	padding-left: 3px;
+}
+
+/* Password */
+
+#forgot-password {
+	background-color: #fff;
+	width: 400px;
+	margin-top: 230px;
+	padding: 10px;
+}
+
+#forgot-password fieldset {
+	width: 360px;
+	padding: 15px 10px 15px 10px;
+}
+
+/* Profile */
+
+
+
+/* Forms: New, Edit */
+
+.form {
+	width: 35%;
+}
+
+#new-property {
+	margin-top: 50px;
+	background-color: #fff;
+	width: 35%;
+	padding: 10px;
+}
+
+#photo {
+	
+}
+
+/* Styles for show_property in the left */
+
+#property-photo {
+	float: right;
+	width: 60%;
+	margin-bottom: 30px;
+}
+
+#small-photo {
+	width: 0;
+	padding: 5px;
+}
+
+#small-properties {
+	float: right;
+	width: 38%;
+	text-align: center;
+}
+
+#property table {
+	border: 1px dashed #eee;
+	border-collapse: collapse;
+	width: 60%;
+	padding: 20px;
+	margin: 10px 0 20px 0;
+}
+
+#property table td {
+	padding: 5px 10px 5px 15px;
+}
+
+#comments {
+	width: 60%;
+	border: 1px dashed #eee;
+}
+
+.comment-field {
+	border-bottom: 1px solid #aaa;
+	padding: 10px;
+	margin: 10px;
+}
+
+.comment {
+	padding: 5px 0 0 20px;
+}
+
+.time {
+	color: #aaa;
+	font-size: 10px;
+	float: right;
+}
+
+.time a {
+	color: #a00;
+	margin-left: 10px;
+	font-size: 14px;
+	text-decoration: none;
+}
+
+.time a:hover {
+	color: #000;
+}
+
+#comment-form {
+	text-align: center;
+}
+
+/* Styles for the my_listings in the main page and the sidebar */
+
+.my_listings-title {
+	font: 120% bold;
+}
+
+.my_listings-price {
+	text-align: right;
+}
+
+/* Styles for the my_listings in the sidebar */
+
+#inner_my_listings {
+	border: #a864a8 1px solid;
+	border-top: 0px;
+}
+
+#my_listings h2 {
+	background: #a864a8;
+	padding: 10px;
+	font-size: 16px;
+	border-bottom: #630460 1px solid;
+}
+
+#my_listings h2 #btn {
+	float: right;
+}
+
+#my_listings table {
+	padding: 10px;
+	font-size: 10px;
+	margin-bottom: 10px;
+}
+
+/* User admin page */
+
+
+
+/* The error box */
+
+.fieldWithErrors {
+  padding: 2px;
+  background-color: #EEFFEE;
+  display: inline;
+}
+
+.fieldWithErrors * {
+  background-color: red;
+}
+
+#errorExplanation {
+  width: 70%;
+  border: 2px solid red;
+  padding: 7px;
+  padding-bottom: 12px;
+  margin-bottom: 20px;
+  background-color: #f0f0f0;
+}
+
+#errorExplanation h2 {
+  text-align: left;
+  font-weight: bold;
+  padding: 5px 5px 5px 15px;
+  font-size: 12px;
+  margin: -7px;
+  background-color: #c00;
+  color: #fff;
+}
+
+#errorExplanation p {
+  color: #333;
+  margin-bottom: 0;
+  padding: 5px;
+}
+
+#errorExplanation ul li {
+  font-size: 12px;
+  list-style: square;
+}

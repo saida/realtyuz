@@ -1,0 +1,27 @@
+#items= render :partial => 'properties/items'
+
+- content_for :header do
+	All Property Types
+
+.roundedcorners
+	%table
+		%tr.tablehead
+			%td Name
+			%td Description
+			%td Configure
+
+		-	@ptypes.each do |ptype| 
+			%tr{:class => cycle('dark', '')}
+				%td=h ptype.ptype_name 
+				%td=h ptype.description 
+			
+				%td.visual
+					%ul
+						%li.pen= link_to '', edit_ptype_path(ptype) 
+						%li.red-ex= link_to '', ptype, :confirm => 'Do you really want to delete this property type?', :method => :delete
+	.round-lt
+	.round-lb
+	.round-rt
+	.round-rb
+	
+.apply

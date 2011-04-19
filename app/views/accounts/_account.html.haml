@@ -1,0 +1,15 @@
+%tr{:class => cycle('dark', '') }
+	%td=h account.login
+	%td=h account.email
+	%td
+		= account.enabled == 1 ? 'yes' : 'no'
+		- unless account == current_account
+			- if account.enabled == 1
+				= link_to('disable', :controller => 'accounts', :action => 'disable_account', :id => account.id )
+			- else
+				= link_to('enable', :controller => 'accounts', :action => 'enable_account', :id => account.id )
+
+	%td
+		- if !account.roles.nil?
+			= account.roles.map {|r| r.name }.join(', ')
+	%td= link_to 'edit roles', roles_path(:account_id => account.id)

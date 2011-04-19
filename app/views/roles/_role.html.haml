@@ -1,0 +1,7 @@
+%li
+	= role.name
+	- if @account.has_role?(role.name)
+		= link_to 'remove role', unassign_account_role_url(:id => role.id, :account_id => @account.id), :method => :delete
+	- else
+		= link_to 'assign role', assign_account_role_url(:id => role.id, :account_id => @account.id), :method => :put
+

@@ -1,0 +1,15 @@
+#items= render :partial => 'properties/items'
+
+- content_for :header do
+	New Type
+
+- semantic_form_for @ptype do |f|
+
+	- f.inputs do
+		= f.input :ptype_name, :label => 'Type'
+		= f.input :description, :type => :text, :input_html => {:rows => 5, :cols => 50}, :required => false
+
+	- f.buttons do
+		= f.commit_button 'Create Type'
+
+= link_to 'Back to all types', ptypes_path

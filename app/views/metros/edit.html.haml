@@ -1,0 +1,29 @@
+%h1 Editing metro
+
+- form_for(@metro) do |f| 
+	= f.error_messages 
+
+	%table
+		%tr
+			%td= f.label :name
+			%br/
+			%td= f.text_field :name
+
+		%tr
+			%td= f.label :region_id 
+			%td= f.select(:region_id, @regions, {:prompt => "- all -"}, {:onChange => remote_function(:url => {:action => "update_cities"}, :with => "'region_id='+value")})
+
+		%tr
+			%td= f.label :city_id
+			%td#cities= render :partial => 'cities'
+
+		%tr
+			%td= f.label :district_id
+			%td#districts= render :partial => 'districts'
+
+		%tr
+			%td{:colspan => 2}= f.submit 'Update'
+
+= link_to 'Show', @metro
+|
+= link_to 'Back', metros_path

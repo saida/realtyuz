@@ -1,0 +1,32 @@
+- content_for :header do
+	School No
+	=h @school.name
+
+%p
+	%b Name:
+	=h @school.name
+
+%p
+	%b Type:
+	=h @school.stype
+
+%p
+	%b Region:
+	=h @school.region.region_name
+
+%p
+	%b City:
+	=h @school.city.city_name
+
+- if @school.district
+	%p
+		%b District:
+		=h @school.district.district_name
+
+%p
+	%b Location:
+	=h @school.location
+
+= link_to 'Edit', edit_school_path(@school)
+|
+= link_to 'Back', schools_path 

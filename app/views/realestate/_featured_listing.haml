@@ -1,0 +1,39 @@
+%h1 Featured Listing
+- @featured_properties.each do |p|
+	%ul{:class => "listing", :id => "property_#{p.id}"}
+		%li
+			.listinfo
+				- if p.assets.first.nil?
+					= image_tag "default_house.jpg", :size => "70x55", :class => "listingimage"
+				- else
+					- asset = p.assets.first
+					= link_to image_tag(asset.url(:tiny), :class => "listingimage"), :action => 'show_property', :id => p.id
+				
+				%h3
+					=h p.ptype.ptype_name
+					- if p.room
+						=h p.room.name
+
+				%p
+					=h p.region.region_name
+					=h p.city.city_name
+					- if p.district
+						=h p.district.district_name
+
+					=h p.floor
+					of
+					=h p.floors
+					floors
+
+				%span.price= currencify(p.price)
+		
+				%span.media
+					= image_tag "icon_img.jpg", :width => "19", :height => "15" 
+					= p.assets.count.to_s + " Images"
+				
+			.listingbtns
+				%span.listbuttons= link_to "View Details", :action => 'show_property', :id => p.id
+				%span.listbuttons{:id => "save-img_#{p.id}", :style => !@my_listings.my_listings_properties.find(:first, :conditions => ['property_id = ?', p.id]) ? nil : "display:none"}= link_to_remote "Add To Favorites", :url => {:action => :add_to_my_listings, :id => @my_listings.id, :property_id => p.id}
+				%span.listbuttons= link_to "Contact Seller", :action => 'show_user', :property_id => p.account.id
+				
+			.clear

@@ -1,0 +1,23 @@
+%p
+	%strong Already registered?
+	Login here to access your account
+
+#loginform
+	- form_remote_tag :url => {:controller => 'sessions', :action => 'create'} do
+		
+		.formblock
+			%label{:for => :login} Username
+			= text_field_tag :login, nil, :class => "textfields"
+		.formblock
+			%label{:for => :password} Password
+			= password_field_tag :password, nil, :class => "textfields"
+		.formblock
+			= image_submit_tag "loginbutton.jpg", :id => "button"
+		.clear
+		%p
+			%ul
+				%li
+					= check_box_tag :remember_me			
+					Remember me on this computer
+					|
+					= link_to_remote_redbox 'Forgot Password?', :url => {:controller => 'passwords', :action => 'new'}

@@ -1,0 +1,29 @@
+- content_for :header do
+	All Regions
+
+.roundedcorners
+	%table
+		%tr.tablehead
+			%td Region Name
+			%td Configure
+	
+		%tr.dark
+			%td= link_to 'Add new region', new_region_path
+			%td
+
+		- @regions.each do |region| 
+			%tr{:class => cycle('', 'dark')}
+				%td=h region.region_name
+				%td.visual
+					%ul
+						%li.pen= link_to '', edit_region_path(region)
+						%li.red-ex= link_to '', region, :confirm => "Are you sure?", :method => :delete
+		%tr
+			%td= link_to 'Add new region', new_region_path
+			%td
+	.round-lt
+	.round-lb
+	.round-rt
+	.round-rb
+
+.apply

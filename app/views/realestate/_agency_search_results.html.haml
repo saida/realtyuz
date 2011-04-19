@@ -1,0 +1,27 @@
+%h1 Agencies
+#featured_listing
+  - @agencies.each do |a|
+    %ul.listing
+      %li
+        .listinfo
+          - if a.photo?
+            = link_to image_tag(a.photo.url(:large), :width => "65", :class => "listingimage"), agency_path(a)
+          - else
+            = image_tag("user_default.jpg", :width => "65", :class => "listingimage")
+          %h3
+            =h a.agency_name
+            %br/
+            =h a.phone1
+          %p
+            =h a.email
+            %br/
+            =h a.region.region_name
+            =h a.city.city_name
+            - if a.district
+              =h a.district.district_name
+        .listingbtns
+          %span.listbuttons= link_to "View Details", :action => 'show_agency', :id => a.id
+          /%span.listbuttons= link_to "Contact Seller", :action => 'show_user', :id => a.id
+        .clear
+%br/
+/= will_paginate @agencies, :class => 'pagination ajax'

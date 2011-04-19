@@ -1,0 +1,9 @@
+%h2 Filter Results
+%ul
+	%li= sort_link "By Price", 'price'
+	%li= sort_link "By Date", 'created_at'
+	%li= sort_link "By Region", 'region_id'
+	%li=h link_to_remote "Create Alerts", :url => {:action => 'index'}, :html => {:class => "highlight"}
+	%li=h link_to_remote "Back To Results", :url => {:action => 'search_results', :collection => @properties}, :html => {:class => "highlight"}
+
+.clear

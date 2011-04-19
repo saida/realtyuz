@@ -1,0 +1,32 @@
+#forgot-password
+  .close=h link_to_close_redbox "X", :controller => "realestate"
+
+  %h3 Request More Details
+  - if flash[:notice]
+    = flash[:notice]
+
+  %style
+    table#request_details tr td {padding:0px 6px}
+
+  #request_details_container
+    - form_remote_tag :url => url_for(:action => 'request_details') do
+      %table#request_details
+        %tr
+          %td First Name
+          %td Last name
+        %tr
+          %td= text_field_tag :fname, current_account ? current_account.user.fname : "", :style => "width:100%"
+          %td= text_field_tag :lname, current_account ? current_account.user.lname : "", :style => "width:100%"
+        %tr
+          %td EMail
+        %tr
+          %td{ :colspan => "2" }= text_field_tag :email, current_account ? current_account.user.email : "", :style => "width:100%"
+        %tr
+          %td
+            Message
+        %tr
+          %td{ :colspan => "2" }= text_area_tag :message, "I would like more information regarding a property at " + h(@property.address), :style => "width:100%"
+        %tr
+          %td
+            %br/
+            = submit_tag "Request More Details", :id => 'button'

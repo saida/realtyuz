@@ -1,0 +1,139 @@
+!!!
+%html
+  %head
+    %title=h (yield(:title) || "Real Estate")
+    = stylesheet_link_tag 'layout', 'forms', 'formtastic', 'formtastic_changes', 'redbox', :cache => 'base' #, 'realestate'
+    = stylesheet_link_tag '/js/jquery.tabs.css', :media => ['print', 'projection', 'screen']
+    = stylesheet_link_tag '/lightbox.css'
+    = javascript_include_tag :defaults, 'prototype', 'redbox', 'scriptaculous.js?load=effect', '/lightbox.1.2.js' #, :juggernaut
+    = javascript_include_tag 'admin/jquery-1.2.6.pack.js', 'dropdown.js'
+    = include_tiny_mce_if_needed
+    - if @map
+      = GMap.header
+    /= juggernaut
+    :javascript
+      $j = jQuery.noConflict();
+    = yield(:head)
+  %body
+    #wrap
+      #topbar{ :class => logged_in? ? "bg2" : "bg1" }
+        %a{ :href => "/realestate", :style => "padding-bottom:5px;" }
+          - if logged_in?
+            %div{ :style => "float:left; margin:5px 12px; color:white; font-weight:bold; font-size:18px;" } Realty UZ
+        %ul.topnav
+          - if logged_in?
+            %li= link_to 'Hi ' + h(current_account.login.capitalize), :controller => 'accounts', :action => 'show'
+            %li
+              = link_to 'My Space', '#'
+              %ul.subnav
+                %li= link_to 'Add Property', :controller => 'realestate', :action => 'add_property'
+                %li= link_to 'My Properties', :controller => 'realestate', :action => 'my'
+                %li= link_to 'Add Preference', :controller => 'preferences', :action => 'new'
+                %li= link_to 'My Preferences', :controller => 'preferences', :action => 'index'
+                - if current_account.has_role?('administrator')
+                  %li= link_to "Administer Pages", :controller => 'admin', :action => 'index'
+            %li
+              = link_to 'Settings', '#'
+              %ul.subnav
+                %li= link_to_remote_redbox 'Edit Account', :url => {:controller => 'accounts', :action => 'edit', :id => 'edit', :layout => 'account'} 
+                %li= link_to_remote_redbox 'Change Password', :url => {:controller => 'profiles', :action => 'edit', :layout => 'account'} 
+                        
+            %li= link_to 'Log Out', logout_url
+
+      
+      - unless logged_in? 
+        #header
+          #sitename
+            %h1#logo= link_to "UzRealty", :controller => 'realestate', :action => 'index'
+          #shoutout= link_to image_tag("joinnow_shoutout.jpg", :width => 168, :height => 126, :border => 0), new_account_path(:type => 'ind')
+          #useractions
+            - unless logged_in?
+              #headings
+                %h2
+                  = image_tag("create_indi_usr.jpg", :width => 25, :height => 22)
+                  =h link_to "Create Individual Account", :controller => 'accounts', :action => 'new', :type => 'ind'
+                %h2
+                  = image_tag("create_agent_icon.jpg", :width => 27, :height => 22)
+                  =h link_to "Create Agent Account", :controller => 'accounts', :action => 'new', :type => 'agent'
+              - if params[:controller] != "sessions"
+                #login= render :partial => 'sessions/new'
+
+      #content
+        #notice{ :style => (flash[:notice] || params[:notice]).blank? ? "display:none" : nil }
+          = h(flash[:notice] || params[:notice] || "")
+        #error{ :style => (flash[:error] || params[:error]).blank? ? "display:none" : nil }
+          = h(flash[:error] || params[:error] || "")
+
+        = yield :home
+
+        .clear
+
+        #main
+          = yield :layout
+
+          #search_results
+
+          #agency_search_results
+
+        #sidebar
+          = yield :sidebar
+          .block.advert
+            %h2.sidebar_head Search Agency / Realtor
+            %br/
+            #agency-search= render :partial => 'realestate/agency_search'
+          
+          .clear
+          
+          #my_listings
+            - if @my_listings
+              - @listings = MyListingsProperty.search(['my_listings_id = ?', @my_listings.id], params[:set2_page])
+              = render :partial => "realestate/my_listings", :object => @my_listings
+          
+          .clear
+          
+          %div{:class => "menulist block"}
+            %h2.sidebar_head Quick Links
+
+            %ul.normalmenu
+              %li= link_to "Documents", documents_path
+              %li= link_to "Pro Agent Account", "#"
+              %li= link_to "Find Agents", "#"
+              %li= link_to "Banking & Finance Help", "#"
+              %li= link_to "Help & Support", "#"
+              %li= link_to "SMS Alerts", "#"
+              %li= link_to "Email Alerts", "#"
+              %li= link_to "Articles", :controller => 'realestate', :action => 'show_articles'
+              %li= link_to "Contact Us", "#"
+
+            .clear
+
+            .block
+            .block
+            .block
+
+        .clear
+
+      #footer   
+        #upperfooter
+          =h link_to "HOME", :action => :index
+          |
+          =h link_to_remote "BUY", :url => {:action => 'search_results', :category_id => 1}
+          |
+          =h link_to_remote "RENT", :url => {:action => 'search_results', :category_id => 2}
+          |
+          - if current_account
+            =h link_to_remote_redbox 'SELL', :url => {:controller => 'properties', :action => 'new'}
+          - else
+            =h link_to_remote 'SELL', :url => {:controller => 'properties', :action => 'new' }
+          |
+          =h link_to "INVEST", :action => :index
+          |
+          =h link_to "ABOUT", :action => :index
+          |
+          =h link_to "CONTACTS", :action => :index
+                  
+        #lowerfooter
+          %span.backtotop=h link_to "Back To Top", "#"
+          Copyright &copy; 2010 Real Estate UZ. All Rights Reserved.
+          =h link_to "Free CSS Template", "http://ramblingsoul.com"
+          by RamblingSoul

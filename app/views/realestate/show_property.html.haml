@@ -1,0 +1,252 @@
+- content_for :sidebar do
+	- if @seller
+		.block
+			%h2.sidebar_head Seller
+			%div{ :style => "padding:8px;" }
+				%table
+					%tr
+						%td{ :valign => "top" }= image_tag @seller.photo.url(:large), :style => "width:80%; border:1px solid #aaa; padding:2px; margin-right:8px;"
+						%td{ :valign => "top" }
+							%b= h(@seller.fname + " " + @seller.lname)
+							%br/
+							- unless @seller.mobphone.blank?
+								Mobile phone:
+								= h @seller.mobphone
+								%br/
+							- unless @seller.workphone.blank?
+								Office phone:
+								= h @seller.workphone
+								%br/
+							- unless @seller.email.blank?
+								EMail:
+								= @seller.email
+	- unless @map.nil?
+		.block
+			= @map.div(:width => 390, :height => 390)
+			= @map.to_html
+
+- content_for :head do
+	= javascript_include_tag 'jqueryui/js/jquery-1.3.2.min.js', 'jqueryui/development-bundle/ui/ui.core.js', 'jqueryui/development-bundle/ui/effects.core.js', 'jqueryui/development-bundle/ui/effects.highlight.js', 'jqueryui/development-bundle/ui/ui.tabs.js'
+	= stylesheet_link_tag 'ajaxui.css'
+	
+	:javascript
+		jQuery.noConflict();
+		jQuery(function () {
+			jQuery("#tabs").tabs({
+		        event: 'mouseover'
+		    });
+		});
+		jQuery(function () {
+		    //run the currently selected effect
+		    function runEffect() {
+		        //get effect type from 
+		        var selectedEffect = jQuery('#highlight').val();
+		        //most effect types need no options passed by default
+		        var options = {};
+		        //check if it's scale, transfer, or size - they need options explicitly set
+		        if (selectedEffect == 'scale') {
+		            options = {
+		                percent: 0
+		            };
+		        }
+		        else if (selectedEffect == 'size') {
+		            options = {
+		                to: {
+		                    width: 200,
+		                    height: 60
+		                }
+		            };
+		        }
+		        //run the effect
+		        jQuery("#searchdiv").toggle(selectedEffect, options, 500);
+		    };
+		    //set effect from select menu value
+		    jQuery("#searchnow").click(function () {
+		        runEffect();
+		        return false;
+		    });
+		});
+
+- content_for :home do
+	.clear#topcategorieslink= render :partial => 'topcategorieslink'
+
+
+
+%h1
+	- if @property.room
+		=h @property.room.name
+	=h @property.ptype.ptype_name
+	in
+	=h @property.city.city_name
+	=h(@property.category && @property.category.name)
+
+#single_item_details
+	
+	#leftcolumn
+		- if !@property.assets.empty?
+			/	#small-properties
+			/		- @property.assets.each do |asset|
+			/			%span#small-photo= link_to_remote image_tag(asset.url(:tiny)), :url => { :action => 'show_photo', :id => asset.id, :property_id => @property.id }
+
+			= image_tag @property.assets.first.url(:large), :alt => 'Outside', :width => "220", :height => "220", :class => "previewimg"
+		- else
+			= image_tag "default_house.jpg", :alt => 'No photo', :width => "220", :height => "220", :class => "previewimg"
+			
+	#rightcolumn
+		%h2= @property.city.city_name + ", " + @property.region.region_name
+		%p.user
+			= image_tag("usericon.gif")
+			Posted by
+			= link_to @property.account.login, "#"
+		%p
+			Ref# :
+			= @property.id
+			%br/
+			Posted On :
+			= @property.created_at.strftime("%A %eth of %B %Y")
+		%p
+		%p.price
+			Offered at:
+			= currencify(@property.price)
+		
+		#tabs
+			%ul
+				%li= link_to "Save This", "#tabs-1"
+				%li= link_to "Send This", "#tabs-2"
+				%li= link_to "Report This", "#tabs-3"
+			.hiddentab#tabs-1
+				%p
+					= image_tag "fav.gif", :width => "18", :height => "13"
+					= link_to_remote "To My Favorites", :url => {:action => 'add_to_my_listings', :id => @my_listings.id, :property_id => @property, :view => 'yes'}
+				%p
+					= image_tag "emailalert.gif", :width => "18", :height => "15"
+					= link_to "To Email Alerts", "#"
+				%p
+					= image_tag "sms.gif", :width => "18", :height => "16"
+					= link_to "To SMS Alerts", "#"
+			.hiddentab#tabs-2
+				%p
+					= image_tag "emailalert.gif", :width => "18", :height => "15"
+					= link_to "By Email", "#"
+				%p
+					= image_tag "sms.gif", :width => "18", :height => "16"
+					= link_to "By SMS", "#"
+			.hiddentab#tabs-3
+				%p
+					= image_tag "emailalert.gif", :width => "18", :height => "15"
+					= link_to "Report Spam", "#"
+	.clear
+	
+	%p
+		= link_to_remote image_tag("vote/1.png", :width => 40), :url => {:action => 'vote', :vote => 1, :voteable_id => @property.id, :voteable_type => "property"}, :id => "vote_for"
+		= link_to_remote image_tag("vote/2.png", :width => 40), :url => {:action => 'vote', :vote => 0, :voteable_id => @property.id, :voteable_type => "property"}, :id => "vote_against"
+		
+	#votes
+		- if @property.votes_count != 0
+			= render :partial => 'votes', :object => @property
+		- else
+			No one liked yet
+	
+		
+	#midraw_details
+		.listingbtns
+			%span.listbuttons=h link_to "Make an Offer", "#"
+			%span.listbuttons=h link_to_remote_redbox "Request Details", :url => {:controller => "realestate", :action => "request_details", :id => @property.id}
+			%span.listbuttons=h link_to "Contact Seller", "#"
+		
+		%style
+			div#imagesgallerylisting img {border:1px solid #888; padding:4px; background:white;}
+		#imagesgallerylisting
+			
+			- @property.assets.each do |asset|
+				%a{ :href => asset.url(:large), :title => "", :rel => "lightbox[gallery]", :title => asset.description }
+					%img{ :src => asset.url(:tiny) }/
+			- if @property.assets.empty?
+				.imagegallink
+					= link_to "View Image Gallery", "#"
+					%span= @property.assets.count.to_s + " Images Submitted"
+	#moredetails
+		#listing_details
+			%table{:cellspacing => 0, :cellpadding => 0}
+				%tr
+					%td{:width => "187", :colspan => 2}
+						%h3 Property Features
+					%td{:width => "191", :colspan => 2}
+				%tr
+					%td
+						%b Asking Price:
+					%td
+						=h currencify(@property.price)
+					%td
+						%b Floor:
+					%td=h @property.floor
+
+				%tr
+					%td
+						%b Property Type:
+					%td=h @property.ptype.ptype_name
+					%td
+						%b Floors:
+						%td=h @property.floors
+
+				%tr
+					- if @property.room
+						%td
+							%b No of Rooms:
+						%td=h @property.room.name
+					%td
+						%b Area:
+					%td=h @property.area
+
+
+				- if @property.district
+					%tr
+						%td
+							%b District:
+						%td
+							=h @property.district.district_name
+						%td
+						%td
+
+				%tr
+					%td
+						%b City:
+					%td=h @property.city.city_name 
+					%td
+						%b Material:
+					%td=h @property.material.name if @property.material
+
+				%tr
+					%td
+						%b Region:
+					%td=h @property.region.region_name
+
+				%tr
+					%td
+						%b Description:
+					%td{:colspan => 3}=h @property.description
+
+
+				- w = eval(Base64.decode64(@property.details).gsub(":", "=>")) rescue {} # get the details, and put them into json format
+				- PROPERTIES.each do |k, v|	# get the
+					%tr
+						%td
+							%b= h(v) + ":"
+						%td= w[k] == 1 ? "Available" : "Not Available"
+		
+		.clear
+
+%h1 Comments
+
+- @obj = @property
+#comments= render :partial => 'comments', :object => @property
+
+%br/
+
+- if current_account
+	- if @property.seller_id == current_account.id
+		= link_to 'Edit', :action => 'edit_property', :id => @property
+		|
+		= link_to 'Delete', :action => 'delete_property', :id => @property, :confirm => "Are you sure?"
+		|
+= link_to 'Back', :action => 'index'

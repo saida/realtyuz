@@ -1,0 +1,20 @@
+%h1 Listing metro properties
+
+%table 
+	%tr 
+		- ["Metro", "Property", "Transport", "Minutes"].each do |s|
+			%th= s
+	
+- @metro_properties.each do |metro_property|
+	%tr 
+		%td=h metro_property.metro.name
+		%td=h metro_property.property.name 
+		%td=h metro_property.transport.name
+		%td=h metro_property.minutes 
+		%td= link_to 'Show', metro_property 
+		%td= link_to 'Edit', edit_metro_property_path(metro_property) 
+		%td= link_to 'Destroy', metro_property, :confirm => 'Do you really want to delete this metro property?', :method => :delete 
+
+%br/
+
+= link_to 'New metro_property', new_metro_property_path

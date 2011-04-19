@@ -1,0 +1,37 @@
+- content_for :header do
+	Edit School
+
+- form_for(@school) do |f| 
+	= f.error_messages
+	.inp-text
+		%table
+			%tr
+				%td= f.label :name
+				%td= f.text_field :name
+			
+			%tr
+				%td= f.label 'Type'
+				%td= f.text_field :stype 
+	
+			%tr
+				%td= f.label :region_id 
+				%td= f.select(:region_id, @regions, {:prompt => "- all -"}, {:onChange => remote_function(:url => {:action => "update_cities"}, :with => "'region_id='+value")})
+
+			%tr
+				%td= f.label :city_id
+				%td#cities= render :partial => 'cities'
+	
+			%tr
+				%td= f.label :district_id
+				%td#districts= render :partial => 'districts'
+	
+			%tr
+				%td= f.label :location		
+				%td= f.text_field :location 
+	
+			%tr
+				%td{:colspan => 2, :align => :center}= f.submit 'Update'
+
+= link_to 'Show', @school
+|
+= link_to 'Back', schools_path

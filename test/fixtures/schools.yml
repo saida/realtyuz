@@ -1,0 +1,17 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  type: MyString
+  region_id: 1
+  city_id: 1
+  district_id: 1
+  location: MyString
+
+two:
+  name: MyString
+  type: MyString
+  region_id: 1
+  city_id: 1
+  district_id: 1
+  location: MyString

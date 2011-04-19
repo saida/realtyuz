@@ -1,0 +1,22 @@
+- content_for :home do
+	#home_main
+
+		#search= render :partial => 'search'
+			
+	#home_sidebar
+
+		.hot= render :partial => 'hot_properties', :object => @hot_properties
+
+	.clear#topcategorieslink
+		%h2 Categories
+		%ul
+			%li= link_to_remote "BUY", :url => {:action => 'search_results', :category_id => 1}
+			%li= link_to_remote "RENT", :url => {:action => 'search_results', :category_id => 2}
+			%li= link_to 'SELL', :url => preferences_path(:category => 1)
+			%li= link_to "INVEST", :url => preferences_path(:category => 2)
+	
+#featured_listing= render :partial => "featured_listing", :object => @featured_properties
+
+#search_results
+	
+#agency_search_results

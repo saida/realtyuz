@@ -1,0 +1,24 @@
+.clear
+#main
+	%h1 Articles
+
+	- @articles.each do |article|
+		%ul.listing
+			%li
+				.listinfo{:style => "width:520px;"}
+					Category:
+					=h article.art_category.name
+					%span{:style => "float:right;"}
+						Created by:
+						=h article.account && article.account.login.capitalize
+						%br/
+						Created date:
+						=h article.created_at.strftime("%e %b %Y") # http://www.ruby-doc.org/core/classes/Time.html
+					%br/
+					%h3{:style => "padding:5px;"}
+						Title:
+						= link_to article.title, article_path(article.id, :layout => 'realestate') 
+					%p{:style => "margin:10px;"}
+						= first_x_words(article.content, 100)
+					
+				.clear

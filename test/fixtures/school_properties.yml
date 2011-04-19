@@ -1,0 +1,13 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  school_id: 1
+  property_id: 1
+  transport_id: 1
+  minutes: 1
+
+two:
+  school_id: 1
+  property_id: 1
+  transport_id: 1
+  minutes: 1

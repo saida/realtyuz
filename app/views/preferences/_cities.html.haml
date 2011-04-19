@@ -1,0 +1,3 @@
+%li
+	= label :preference, :city_id
+	= select(:preference, :city_id, @cities, {:prompt => "- Select City -"}, {:onChange => remote_function(:url => {:action => "update_districts"}, :with => "'city_id='+ value")})

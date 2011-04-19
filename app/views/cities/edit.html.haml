@@ -1,0 +1,24 @@
+- content_for :header do
+	Edit City
+
+- form_for(@city) do |f|
+
+	.inp-text
+		%table
+			%tr
+				%td= f.label :region_id
+				%td= f.select :region_id, Region.all.collect{|r| [r.region_name, r.id]}, {:prompt => "- Select a region -"}	
+				%td
+					- hidden_div_if(@city.errors == '', :class => 'error message') do
+						= error_message_on(@city, :region_id)
+
+			%tr
+				%td= f.label 'City'
+				%td= f.text_field :city_name
+				%td
+					- hidden_div_if(@city.errors == '', :class => 'error message') do
+						= error_message_on(@city, :city_name)
+			%tr
+				%td{:colspan => 2, :align => :center}
+					= f.submit 'Update'
+					= link_to 'Back', cities_path

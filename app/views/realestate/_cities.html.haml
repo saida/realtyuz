@@ -1,0 +1,5 @@
+%label City
+- if params[:type] == 1
+	= collection_select(nil, :city_id, cities, :id, :city_name, {:prompt => "- all -"}, {:class => "select_field", :onChange => remote_function(:url => {:action => "update_districts"}, :with => "'city_id='+ value")})
+- else
+	= collection_select(nil, "property[city_id]", cities, :id, :city_name, {:prompt => "- all -"}, {:class => "select_field", :onChange => remote_function(:url => {:action => "update_districts"}, :with => "'city_id='+ value")})

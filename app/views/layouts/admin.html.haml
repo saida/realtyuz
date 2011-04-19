@@ -1,0 +1,105 @@
+!!!
+%html{:xmlns=>"http://www.w3.org/1999/xhtml", "xml:lang"=>"en", :lang=>"en"}
+	%head
+		%title=h (yield(:title) || "Real Estate")
+		= stylesheet_link_tag 'admin', 'formtastic', 'formtastic_changes', 'overlay', :cache => 'base'
+		= javascript_include_tag :defaults, 'prototype', 'redbox', 'FusionCharts', 'admin/jquery-1.2.6.pack.js', 'admin/jquery.accordion.js', 'admin/main.js', 'scriptaculous.js?load=effect', '/lightbox.1.2.js'
+		= include_tiny_mce_if_needed
+		:javascript
+			$j = jQuery.noConflict();
+		= yield :head
+	%body
+		- if logged_in? and current_account.has_role?('administrator')
+			.main
+				.sidebar
+					%h1= link_to 'Admin', :controller => 'admin'
+					.enter
+						%p
+							Hello,
+							= link_to h(current_account.login.capitalize), account_path(current_account, :layout => 'admin'), :class => 'opener'
+						%ul
+							%li= link_to 'Main', :controller => 'realestate'
+							| 
+							%li= link_to 'Log Out', logout_url
+					%ul.accordion
+						%li
+							= link_to 'Dashboard', :controller => 'admin', :action => 'index'
+						%li
+							= link_to 'Property Listings', '#', :class => 'opener'
+							%ul.slide
+								%li= link_to 'Create property', new_property_path
+								%li= link_to 'View properties', properties_path
+								%li= link_to 'Property Types', ptypes_path
+								%li= link_to 'Property Categories', categories_path
+						%li
+							= link_to 'Users', '#', :class => 'opener'
+							%ul.slide
+								%li= link_to 'Create user', new_user_path
+								%li= link_to 'All users', users_path
+								%li= link_to 'User accounts', accounts_path						
+						%li
+							= link_to 'Agencies', '#', :class => 'opener'
+							%ul.slide
+								%li= link_to 'Create agency', new_agency_path
+								%li= link_to 'All agencies', agencies_path
+						%li
+							= link_to 'Property Features', '#', :class => 'opener'
+							%ul.slide
+								%li= link_to 'Rooms', rooms_path
+								%li= link_to 'Materials', materials_path
+						%li
+							= link_to 'Location Details', '#', :class => 'opener'
+							%ul.slide
+								%li= link_to 'Regions', regions_path
+								%li= link_to 'Cities', cities_path
+								%li= link_to 'Districts', districts_path
+								%li= link_to 'Metros', metros_path
+								%li= link_to 'Schools', schools_path
+								%li= link_to 'Transports', transports_path
+						%li
+							= link_to 'Articles', '#', :class => 'opener'
+							%ul.slide
+								%li= link_to 'Create article', new_article_path
+								%li= link_to 'View articles', articles_path
+						%li
+							= link_to 'Settings', '#', :class => 'opener'
+							%ul.slide
+								%li= link_to_remote_redbox 'Edit Account', :url => {:controller => 'accounts', :action => 'edit', :id => 'edit', :layout => 'account'} #edit_account_path(current_account) 
+								%li= link_to_remote_redbox 'Change Password', :url => change_password_path
+				
+				.content
+					.content-inner
+						.content-inner-2
+							%h2
+								Welcome,
+								%b= h(current_account.login.capitalize)
+							%h3 What would you like to do?
+							%ul.items
+								= yield :items
+							
+							.contentbox
+								.contentbox-title
+									.contentbox-title-left
+										%h4= yield :header
+								.cb-rep-right
+									.cb-rep-left
+										.cb-bot
+											.cb-bot-left
+												.cb-right	
+													- if flash[:notice] and flash[:notice] != ''
+														.info-top
+															.info-right
+																.info-bot
+																	.info-left
+																		.info-rt
+																			.info-rb
+																				.info-lb
+																					.info-lt
+																						%p= flash[:notice]
+																						.ex= image_tag("admin/ex.png")
+											
+													= yield :layout
+									
+							= yield :index
+							
+							.footer &copy; Copyright 2011 Real Estate UZ | Powered by Simpla Admin | Top

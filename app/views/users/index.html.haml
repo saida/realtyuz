@@ -1,0 +1,42 @@
+#items= render :partial => 'items'
+
+- content_for(:header) do
+	All Users
+
+- form_tag :action => 'update_list' do
+	.roundedcorners
+		%table
+			%tr.tablehead
+				%td.check
+				- ["Photo", "Type", "Co Title", "First Name", "Last Name", "Configure"].each do |s|
+					%td= s
+			- @users.each do |user|
+				%tr{ :class => cycle('dark', '') }
+					%td.check= check_box_tag "users[]", user.id
+					%td
+						- if user.photo?
+							= link_to (image_tag user.photo.url(:small), :size => "40x45"), user
+						
+					%td
+						- if user.utype_id
+							=h user.utype.usertype
+					%td=h user.cotitle
+					%td=h user.fname
+					%td=h user.lname
+					%td.visual
+						%ul{:style => "width:160px;"}
+							%li.set= link_to '', user
+							%li.email= link_to '', '#'
+							%li.pen= link_to '', edit_user_path(user)
+							%li.red-ex= link_to '', user, :confirm => 'Do you really want to delete this user?', :method => :delete
+		.round-lt
+		.round-lb
+		.round-rt
+		.round-rb
+	.apply
+		= check_box_tag "delete"
+		Delete
+		%input{:type => "image", :src => "images/admin/apply.png"}
+%br/
+
+= link_to 'New user', new_user_path

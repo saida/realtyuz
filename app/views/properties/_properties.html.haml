@@ -1,0 +1,48 @@
+- form_tag :action => 'update_list' do
+	.roundedcorners
+		%table
+			%tr.tablehead
+				%td.check
+				- ["Photo", "Category", "Type", "Location", "Area", "Material", "Rooms", "Floor", "Price", "Configure"].each do |s|
+					%th= s
+			- @properties.each do |property|
+				%tr{ :class => cycle('dark', '') }
+					%td.check= check_box_tag "properties[]", property.id
+					- if property.assets.empty?
+						%td= link_to image_tag("default_house.jpg", :size => "70x55"), property
+					- else
+						- asset = property.assets.first
+						%td= link_to image_tag(asset.url(:tiny)), property
+					%td
+						- if property.category
+							=h property.category.name
+					%td=h property.ptype.ptype_name
+					%td
+						- if property.district
+							=h property.district.district_name + ","
+						=h property.city.city_name + ","
+						=h property.region.region_name
+					%td=h property.area
+					%td
+						- if property.material
+							=h property.material.name
+					%td
+						- if property.room
+							=h property.room.name
+					%td=h property.floor.to_s + "/" + property.floors.to_s
+					%td=h currencify(property.price)
+					%td.visual
+						%ul
+							%li.set= link_to '', property
+							%li.pen= link_to '', edit_property_path(property)
+							%li.red-ex= link_to '', property, :confirm => 'Do you really want to delete this listing?', :method => :delete
+		%br/
+		.pagination= will_paginate @properties, :class => 'pagination ajax'
+		.round-lt
+		.round-lb
+		.round-rt
+		.round-rb
+	.apply
+		= check_box_tag "delete"
+		Delete
+		%input{:type => "image", :src => "images/admin/apply.png"}

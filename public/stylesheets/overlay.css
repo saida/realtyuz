@@ -1,0 +1,93 @@
+/* Forms */
+
+#change-password, #edit-account {
+	background:#efe;
+	width: 400px;
+	padding: 10px;
+	margin: 180px auto 0 auto;
+}
+
+#title {
+	font:bold 18px "Trebuchet MS", Verdana, Arial, sans-serif;
+	padding:5px;
+}
+
+/* Register */
+
+#main-signup {
+	background-color: #fff;
+	width: 355px;
+	text-align: left;
+	margin: 170px auto 0 auto;
+	background-color:#E3F6FC;
+	border: 1px solid gray;
+}
+
+#main-signup h2, #main-login h2 {
+	font: bold 18px "Trebuchet MS", Verdana, Arial, sans-serif;
+	background:url(../images/searchbg.jpg);
+	padding:10px;
+	margin:0;
+}
+
+#signup-form, #login-form {
+	padding: 20px 30px 20px 20px;
+}
+
+/* Login */
+
+#main-login {
+	background-color: #fff;
+	text-align: left;
+	width: 260px;
+	margin: 200px auto 0 auto;
+	background-color:#E3F6FC;
+	padding-bottom:10px;
+}
+
+#login-admin {
+	margin-top: 150px;
+	margin-left: 35%;
+}
+
+#login-admin fieldset {
+	width: 240px;
+}
+
+#login-notice {
+	color: #f00;
+	padding-left: 30%;
+}
+
+.close {
+	padding-bottom: 10px;
+	float: right;
+}
+
+.close a {
+	color: #333;
+	font-weight: bold;
+	text-decoration: none;
+	padding-left: 4px;
+}
+
+.close a:hover {
+	color: #000;
+	font-weight: bold;
+	text-decoration: none;
+	padding-left: 3px;
+}
+
+/* Password */
+
+#forgot-password {
+	background-color: #fff;
+	width: 400px;
+	margin-top: 230px;
+	padding: 10px;
+}
+
+#forgot-password fieldset {
+	width: 360px;
+	padding: 15px 10px 15px 10px;
+}

@@ -1,0 +1,3 @@
+- content_for :items do
+	- [['item-properties.jpg', 'All listings', 'properties', 'index'], ['item-addproperty.gif', 'Add a new listing', 'properties', 'new'], ['item-12.jpg', 'All property types', 'ptypes', 'index'],  ['/32x32/actions/document-new.png', 'Add property type', 'ptypes', 'new'],  ['/32x32/actions/edit-copy.png', 'All categories', 'categories', 'index'], ['/32x32/actions/bookmark-new.png', 'Add category', 'categories', 'new']].each do |a|
+		%li= link_to image_tag(a[0] =~ /\// ? a[0] : "admin/#{a[0]}") + a[1], :controller => a[2], :action => a[3]

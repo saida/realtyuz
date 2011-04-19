@@ -1,0 +1,68 @@
+- content_for :header do
+  Dashboard
+
+.roundedcorners
+  %table
+    %tr
+      %td
+        %h3
+          %b Users registered
+        = @account_report
+        %br/
+      %td
+        %h3
+          %b Properties by regions
+        = @regions_report
+    %tr
+      %td
+        %h3
+          %b Properties created last 30 days
+        = @property_report
+        %br/
+      %td
+        %h3
+          %b Preferences created last 30 days
+        = @preference_report
+        %br/
+  .round-lt
+  .round-lb
+  .round-rt
+  .round-rb
+
+.apply
+
+- content_for :index do
+  .two-columns
+    %div{:class => "column left-poz"}
+      .contentbox
+        .contentbox-title
+          .contentbox-title-left
+            %h4 Hot Properties
+        .cb-rep-right
+          .cb-rep-left
+            .cb-bot
+              .cb-bot-left
+                .cb-right
+                  = render :partial => 'properties/hot_properties', :object => @properties
+              
+    %div{:class => "column right-poz"}
+      .contentbox
+        .contentbox-title
+          .contentbox-title-left
+            %h4 Latest Comments     
+        .cb-rep-right
+          .cb-rep-left
+            .cb-bot
+              .cb-bot-left
+                .cb-right
+                  - for comment in @comments
+                    %div{ :style => "background: none repeat scroll 0 0 #F8F8C5; border: 1px solid #EEEEEE; display: block; margin-bottom: 10px; margin-top:10px; padding: 10px;" }
+                      %p
+                        %b
+                          - if comment.account_id != 0
+                            = Account.find(comment.account_id).login
+                          - else
+                            Anonymous
+                        %span.time= comment.created_at.strftime("%e %b at %I:%M%p")
+                      %p
+                        = h comment.comment

@@ -1,0 +1,5 @@
+- content_for :items do
+	%li= link_to image_tag("admin/item-users.jpg") + "All users", users_path
+	%li= link_to image_tag("admin/item-adduser.jpg") + "Add a user", new_user_path
+	%li= link_to image_tag("admin/item-usertypes.jpg") + "All user types", utypes_path
+	%li= link_to image_tag("admin/item-adduser.jpg") + "Add user type", new_utype_path

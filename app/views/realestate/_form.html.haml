@@ -1,0 +1,4 @@
+- f.semantic_fields_for :assets, asset do |form|
+	- form.inputs do
+		= form.input :data, :as => :file, :label => 'Add photo', :required => false
+		= form.input :description, :label => 'Place Description', :required => false

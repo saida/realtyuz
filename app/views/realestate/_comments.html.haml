@@ -1,0 +1,23 @@
+- if @obj.comments.count != 0
+	- @obj.comments.reverse.each do |comment|
+		%div{:class => "comment-field", :id => "comment_#{comment.id}"}
+			%b
+				- if comment.account_id != 0
+					=h Account.find(comment.account_id).login
+				- else
+					Anonymous
+			.time
+				=h comment.created_at.strftime("%e %b at %I:%M%p") # http://www.ruby-doc.org/core/classes/Time.html
+				- if current_account and comment.account_id == current_account.id
+					= link_to_remote "x", :url => {:action => 'delete_comment', :id => comment.id}
+			.comment=h comment.comment
+
+%br/
+- form_remote_tag :url => {:action => 'add_comment'}, :html => {:id => 'comment-form'} do
+	%ul
+		%li= text_area :comment, :comment, :rows => 4, :cols => 50, :id => 'comment-textarea'
+		%br/
+		%li{ :style => "text-align:right; padding-right:70px" }= submit_tag 'Add comment'
+
+	= hidden_field 'commentable', 'commentable', :value => (params[:commentable] && params[:commentable][:commentable_id]) || "property"
+	= hidden_field 'commentable', 'commentable_id', :value => @obj.id

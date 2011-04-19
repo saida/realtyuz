@@ -1,0 +1,33 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user_id: 1
+  region_id: 1
+  city_id: 1
+  ptype_id: 1
+  minprice: 9.99
+  maxprice: 9.99
+  pcategory_id: 1
+  minarea: 1
+  maxarea: 1
+  material_id: 1
+  floor: 1
+  floors: 1
+  rooms: 1
+  description: MyText
+
+two:
+  user_id: 1
+  region_id: 1
+  city_id: 1
+  ptype_id: 1
+  minprice: 9.99
+  maxprice: 9.99
+  pcategory_id: 1
+  minarea: 1
+  maxarea: 1
+  material_id: 1
+  floor: 1
+  floors: 1
+  rooms: 1
+  description: MyText

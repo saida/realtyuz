@@ -1,0 +1,59 @@
+#main
+  %h1= h @agency.agency_name
+  %p{:style => "float:left; margin-right:12px;"}
+    - if @agency.photo?
+      = image_tag @agency.photo.url(:large), :style => "border:1px solid #aaa; padding:4px;"
+    - else
+      = image_tag "user_default.jpg", :style => "border:1px solid #aaa; padding:4px;"
+
+    %br/
+    %br/
+    /- if @user.id == current_account.user.id
+    / = link_to 'Edit', edit_user_path(@user)
+    / |
+    /= link_to 'All Preferences', preferences_path
+  #info{:style => "float:left; width:50%; font-size:12px;"}
+    /- if @user.utype_id and @user.utype.usertype == ("corporate" or "agent")
+    / %p
+    /   %b Co title:
+    /   =h @user.cotitle
+    %p
+      %b Contact name:
+      =h @agency.contact_fname.to_s + " " + @agency.contact_lname.to_s
+      %p
+        %b Region:
+        =h @agency.region.region_name
+    %p
+      %b Region:
+      =h @agency.region.region_name
+    %p
+      %b City:
+      =h @agency.city.city_name
+    - if @agency.district
+      %p
+        %b District:
+        =h @agency.district.district_name
+    %p
+      %b Phone 1:
+      =h @agency.phone1
+
+    %p 
+      %b Phone 2:
+      =h @agency.phone2
+
+    %p 
+      %b Fax:
+      =h @agency.fax
+
+    %p 
+      %b Email:
+      =h @agency.email
+
+    %p 
+      %b Website:
+      =h @agency.website
+
+- params[:commentable]||= {}
+- params[:commentable][:commentable_id] = "Agency"
+- @obj = @agency
+#comments= render :partial => 'comments', :object => @agency

@@ -1,0 +1,36 @@
+.clear
+
+#main
+	%h1 Add Preference
+
+	#update{:style => "width:400px; margin-left:100px;"}
+		- semantic_form_for @preference do |f|
+			= f.error_messages
+			%br/
+			- f.inputs do
+				= f.input :category, :as => :radio, :required => false
+				= f.input :ptype, :collection => @ptypes, :prompt => "- Select Property Type -", :required => false
+				#regions
+					%li
+						= f.label :region_id
+						= f.select(:region_id, @regions, {:prompt => "- Select Region -"}, {:onChange => remote_function(:url => {:action => "update_cities"}, :with => "'region_id='+value")})
+				#cities
+				#districts
+				
+				= f.input :minprice, :as => :numeric, :required => false, :label => 'Minimum Price'
+				= f.input :maxprice, :as => :numeric, :required => false, :label => 'Maximum Price'
+				
+				= f.input :minarea, :required => false, :label => 'Minimum Area'
+				= f.input :maxarea, :required => false, :label => 'Maximum Area'
+				
+				= f.input :material, :collection => @materials, :prompt => "- Select Material Type -", :required => false
+				= f.input :room, :label => 'Rooms', :collection => @rooms, :prompt => "- Select No of Rooms -", :required => false
+				= f.input :floor, :as => :numeric, :required => false
+				= f.input :floors, :as => :numeric, :required => false
+				= f.input :description, :input_html => { :rows => 5, :cols => 10, :maxlength => 10  }, :required => false
+
+			= f.buttons
+		
+		%br/
+		=h link_to 'All preferences', preferences_path
+		

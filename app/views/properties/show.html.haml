@@ -1,0 +1,124 @@
+#items= render :partial => 'items'
+
+#desc{:style => 'width:50%; float:left;'}
+	- content_for(:header) do
+		=h @property.category.name + " -"
+		- if @property.district
+			=h @property.district.district_name + ","
+		=h @property.city.city_name + ","
+		=h @property.region.region_name
+		%b=h "- " + currencify(@property.price.to_s)
+
+	%table
+		%tr
+			#imagesgallerylisting
+				- @property.assets.each do |asset|
+					%td
+						= link_to_remote image_tag(asset.url(:tiny)), :url => {:action => 'show_photo', :id => asset.id }
+						%br/
+						= asset.description
+	%br/
+	%p
+		%b Category:
+		=h @property.category.name
+
+	%p
+		%b Type:
+		=h @property.ptype.ptype_name
+
+	%p
+		%b Seller:
+		- if @property.account.user
+			= link_to @property.account.user.fname + " " + @property.account.user.lname, user_path(@property.account.user_id)
+		- else
+			= link_to @property.account.login, account_path(@property.seller_id)
+
+	%p
+		%b Region:
+		=h @property.region.region_name 
+
+	%p
+		%b City:
+		=h @property.city.city_name 
+
+	- if @property.district
+		%p
+			%b District:
+			=h @property.district.district_name
+
+	- if @property.metros
+		- @property.metros.each do |m|
+			%p
+				%b Metro:
+				=h m.name
+		
+				- m.metro_properties.each do |mp|
+					- if mp.transport
+						by
+						= mp.transport.name
+						in
+						= mp.minutes
+						minutes
+
+	- if @property.schools
+		- @property.schools.each do |s|
+			%p
+				%b School no:
+				=h s.name
+			
+				- s.school_properties.each do |sp|
+					- if sp.transport
+						by
+						= sp.transport.name
+						in
+						= sp.minutes
+						minutes
+
+	%p
+		%b Area:
+		=h @property.area 
+
+	%p
+		%b Material:
+		=h @property.material && @property.material.name
+
+	%p
+		%b Rooms:
+		=h @property.room && @property.room.name
+
+	%p
+		%b Floor:
+		=h @property.floor
+
+	%p
+		%b Floors:
+		=h @property.floors 
+
+	%p
+		%b Description:
+		=h @property.description 
+
+	%p
+		%b Price: 
+		$
+		=h @property.price
+	
+	%p
+		%b Comments:
+		- @property.comments.each do |comment|
+			%b=h comment.title
+			=h comment.comment
+
+	= link_to 'Edit', edit_property_path(@property)
+	|
+	= link_to 'Back', properties_path
+
+#bigphoto{:style => 'width:50%; float:left;'}
+	- if @property.assets
+		= image_tag(@property.assets.first.url(:large), :width => '350px')
+		%br/
+		%center
+			%h3= @property.assets.first.description
+
+.apply
+	

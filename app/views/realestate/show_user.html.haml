@@ -1,0 +1,41 @@
+#main
+	%h1=h @user.fname.to_s + " " + @user.lname.to_s + ", " + @user.utype.usertype.capitalize + " User"
+	%p{:style => "float:left; width:30%;"}
+		- if @user.photo?
+			= image_tag @user.photo.url(:large)
+		- else
+			= image_tag "user_default.jpg"
+
+		%br/
+		%br/
+		- if @user.id == current_account.user.id
+			= link_to 'Edit', edit_user_path(@user)
+			|
+		= link_to 'All Preferences', preferences_path
+	#info{:style => "float:left; width:50%; font-size:12px;"}
+		- if @user.utype_id and @user.utype.usertype == ("corporate" or "agent")
+			%p
+				%b Co title:
+				=h @user.cotitle
+		%p
+			%b Mob Phone:
+			=h @user.mobphone
+
+		%p 
+			%b Work Phone:
+			=h @user.workphone
+
+		%p 
+			%b Email:
+			=h @user.email
+
+		%p 
+			%b Website:
+			=h @user.website
+
+		- if @user.utype.usertype != ("broker" or "agent") && @user.broker_id
+			%p
+				%b Broker:
+				=h @user.user.fname + " " + @user.user.lname
+	
+	

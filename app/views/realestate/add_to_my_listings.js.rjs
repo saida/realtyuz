@@ -1,0 +1,9 @@
+page["my_listings"].visual_effect :appear, :duration => 1
+
+page.select("#save-img_#{@property.id}").each do |p|
+  p.hide
+end
+
+page.replace_html("my_listings", :partial => "my_listings", :object => @my_listings)
+
+page["listing_#{@property.id}"].visual_effect :highlight, :startcolor => "#ccffcc", :endcolor => "#aaffaa"

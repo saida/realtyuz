@@ -1,0 +1,46 @@
+- content_for :header do
+	Listing Agencies
+
+.roundedcorners
+	%table 
+		%tr
+			-	["Photo", "Name", "Phone", "Email", "Contact Name", "Location", "Configure"].each do |s|
+				%td= s
+
+		- @agencies.each do |agency|
+			%tr{:class => cycle('dark', '')}
+				%td
+					- if agency.photo?
+						= link_to image_tag(agency.photo.url(:small)), agency
+				%td= link_to agency.agency_name, agency
+				%td
+					=h agency.phone1
+					=h agency.phone2
+					- if agency.fax != ''
+						%br/
+						Fax:
+						=h agency.fax
+				%td=h agency.email
+				%td
+					=h agency.contact_fname
+					=h agency.contact_lname
+				%td
+					- if agency.district
+						=h agency.district.district_name + ","
+					- if agency.city
+						=h agency.city.city_name + ","
+					- if agency.region
+						=h agency.region.region_name
+				
+				%td.visual
+					%ul
+						%li.set= link_to '', agency
+						%li.pen= link_to '', edit_agency_path(agency)
+						%li.red-ex= link_to '', agency, :confirm => 'Do you really want to delete this agency?', :method =>	:delete
+	.round-lt
+	.round-lb
+	.round-rt
+	.round-rb
+%br/ 
+
+= link_to 'New agency', new_agency_path 

@@ -1,0 +1,32 @@
+- content_for :header do
+	All Schools
+
+.roundedcorners
+	%table
+		%tr.tablehead
+			- ["Name", "Type", "Location", "Configure"].each do |s|
+				%td= s
+
+		- @schools.each do |school|
+			%tr{ :class => cycle('dark', '')}
+				%td=h school.name
+				%td=h school.stype
+				%td
+					=h school.location + ","
+					- if school.district
+						=h school.district.district_name + ","
+					=h school.city.city_name + ","
+					=h school.region.region_name
+				%td.visual
+					%ul
+						%li.set= link_to '', school 
+						%li.pen= link_to '', edit_school_path(school) 
+						%li.red-ex= link_to '', school, :confirm => 'Do you really want to delete this school?', :method => :delete 
+	.round-lt
+	.round-lb
+	.round-rt
+	.round-rb 
+	
+%br/
+
+= link_to 'New school', new_school_path

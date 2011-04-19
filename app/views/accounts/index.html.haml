@@ -1,0 +1,19 @@
+- content_for(:header) do
+	All Accounts
+
+.roundedcorners
+	%table
+		%tr.tablehead
+			- ["Username", "Email", "Enabled?", "Roles", "Configure"].each do |s|
+				%td= s
+	
+		= render :partial => 'account', :collection => @accounts
+	
+	.round-lt
+	.round-lb
+	.round-rt
+	.round-rb
+
+%br/
+.apply
+		

@@ -1,0 +1,11 @@
+.clear
+
+%div{:id => params[:layout] ? '' : 'main' }
+	#edit-account
+		.close=h link_to_close_redbox "X", :url => {:controller => 'realestate', :action => 'index'}
+		#title Edit Your Account
+		%br/
+		- form_for @account, :layout => params[:layout] do |f| #:account, :url => account_path(@account)
+			= f.label 'Email'
+			= f.text_field :email, :size => 40
+			= f.submit 'Save'

@@ -1,0 +1,38 @@
+#main-login
+	%h2
+		Login
+		- if request.xhr?
+			=h link_to_close_redbox "x", :controller => "realestate", :class => 'close'
+	
+	#login-form
+		- form_tag session_path do
+			%table
+				%tr
+					%td
+						%label{:for => "login"} Username:
+					%td
+						.formblock= text_field_tag :login, nil, :class => "textfields"
+
+				%tr
+					%td
+						%label{:for => "password"} Password:
+					%td
+						.formblock= password_field_tag :password, nil, :class => "textfields"
+				
+				%tr
+					%td
+					%td
+						= check_box_tag :remember_me
+						%label{:for => "remember_me"} Remember Me
+						
+				%tr
+					%td{:colspan => 2}
+						- if flash[:error]
+							#login-notice= flash[:error]
+				%tr
+					%td{:colspan => 2, :align => :right}
+						= image_submit_tag "loginbutton.jpg", :id => "button"
+		%p
+			= link_to "Sign Up", new_account_path
+			|
+			= link_to "Main", "/"

@@ -1,0 +1,14 @@
+- content_for :header do
+	Edit user type -
+	= @utype.usertype
+
+- semantic_form_for @utype do |f|
+	
+	- f.inputs do
+		= f.input :usertype, :label => "User Type"
+		= f.input :description, :type => :text, :required => false, :input_html => { :rows => 4, :cols => 30 }
+	- f.buttons do
+		= f.commit_button 'Update'
+	
+
+= link_to 'Back', utypes_path

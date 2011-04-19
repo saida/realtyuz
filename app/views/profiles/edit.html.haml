@@ -1,0 +1,30 @@
+%div{:id => params[:layout] ? '' : 'main' }
+	#change-password
+		.close=h link_to_close_redbox "X", :controller => "realestate"
+
+		#title Change password
+	
+		- if flash[:notice] || flash[:error]
+			#notice= flash[:notice] || flash[:error]
+		
+		- form_tag :controller => 'profiles', :action => 'update' do
+	
+			%table
+				%tr
+					%td Old Password:
+					%td= password_field_tag 'old_password', @old_password, :size => 30
+				
+				%tr
+					%td New Password:
+					%td
+						= password_field_tag 'password', {}, :size => 30
+						%br/
+						%small Between 6 and 20 characters
+				%tr
+					%td Confirm Password:
+					%td= password_field_tag 'password_confirmation', {}, :size => 30
+	
+				%tr
+					%td{:colspan => 2, :align => :center}
+						%br/
+						= submit_tag 'Change password' 

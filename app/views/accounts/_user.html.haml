@@ -1,0 +1,13 @@
+#user
+	- form.semantic_fields_for :user, user do |u|
+		- u.inputs do
+			- if @agency
+				= u.input :utype, :as => :radio, :collection => @utypes, :label => 'Type'
+				- if @user.utype_id != (1 or 5)
+					= u.input :cotitle, :required => false, :label => 'Agency Title'
+					= u.input :agency, :collection => @agencies, :required => false
+				= u.input :mobphone, :required => false, :label => 'Mobile Phone'
+				= u.input :workphone, :required => false, :label => 'Office Phone'
+			= u.input :fname, :label => 'First Name', :required => false
+			= u.input :lname, :label => 'Last Name', :required => false
+			= u.input :photo, :as => :file, :required => false, :input_html => {:size => 20 } 

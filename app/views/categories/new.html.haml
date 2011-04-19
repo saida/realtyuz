@@ -1,0 +1,14 @@
+#items= render :partial => 'properties/items'
+
+- content_for :header do
+	New Category
+
+- semantic_form_for @category do |f|
+	
+	- f.inputs do
+		= f.input :name
+		= f.input :description, :type => :text, :input_html => {:rows => 5, :cols => 50}, :required => false
+	
+	= f.buttons
+
+= link_to 'Back to all categories', categories_path

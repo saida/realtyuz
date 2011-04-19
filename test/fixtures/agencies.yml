@@ -1,0 +1,27 @@
+# Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
+
+one:
+  agency_name: MyString
+  phone1: MyString
+  phone2: MyString
+  fax: MyString
+  email: MyString
+  website: MyString
+  contact_fname: MyString
+  contact_lname: MyString
+  region_id: 1
+  city_id: 1
+  district_id: 1
+
+two:
+  agency_name: MyString
+  phone1: MyString
+  phone2: MyString
+  fax: MyString
+  email: MyString
+  website: MyString
+  contact_fname: MyString
+  contact_lname: MyString
+  region_id: 1
+  city_id: 1
+  district_id: 1
