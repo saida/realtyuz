@@ -1,4 +1,5 @@
 class RegionsController < ApplicationController
+  skip_before_filter :login_required
   # GET /regions
   # GET /regions.xml
   def index

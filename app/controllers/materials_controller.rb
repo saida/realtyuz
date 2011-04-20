@@ -1,4 +1,5 @@
 class MaterialsController < ApplicationController
+   skip_before_filter :login_required
   # GET /materials
   # GET /materials.xml
   def index

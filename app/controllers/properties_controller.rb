@@ -26,7 +26,7 @@ class PropertiesController < ApplicationController
         end
       }
       format.xml { render :xml => @properties }
-      format.json { render :json => @properties }
+      format.json { render :json => Property.all(:order => 'created_at DESC') }
     end
   end
   

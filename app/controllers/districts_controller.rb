@@ -1,4 +1,5 @@
 class DistrictsController < ApplicationController
+ skip_before_filter :login_required
   # GET /districts
   # GET /districts.xml
   def index

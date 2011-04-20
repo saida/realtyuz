@@ -1,11 +1,13 @@
 class AccountsController < ApplicationController
+  skip_before_filter :login_required
   layout :set_layout
   
+  protect_from_forgery :except => [:create, :update, :delete]
   # Protect these actions behind an admin login
   skip_before_filter :login_required, :only => [:new, :create]
-  before_filter :login_required, :only => [:show, :edit, :update]
-  before_filter :check_administrator_role, :only => [:index, :destroy, :enable, :suspend, :unsuspend, :destroy, :purge]
-  before_filter :find_account, :only => [:suspend, :unsuspend, :destroy, :purge]
+  #before_filter :login_required, :only => [:show, :edit, :update]
+  #before_filter :check_administrator_role, :only => [:index, :destroy, :enable, :suspend, :unsuspend, :destroy, :purge]
+  #before_filter :find_account, :only => [:suspend, :unsuspend, :destroy, :purge]
   
   def set_layout
     params[:action] == 'index' ? 'admin' : (params[:layout] || 'realestate')
@@ -13,6 +15,8 @@ class AccountsController < ApplicationController
   
   def index
    @accounts = Account.all
+   
+   render :text => @accounts.to_json
   end
   
   #These show, edit, update actions only allow users to view and update their own profile

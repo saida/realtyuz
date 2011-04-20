@@ -1,4 +1,5 @@
 class PtypesController < ApplicationController
+  skip_before_filter :login_required
   # GET /ptypes
   # GET /ptypes.xml
   def index

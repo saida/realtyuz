@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  skip_before_filter :login_required
   layout :set_layout
   
   def set_layout
