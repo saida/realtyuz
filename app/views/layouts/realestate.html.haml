@@ -95,15 +95,16 @@
             %h2.sidebar_head Quick Links
 
             %ul.normalmenu
-              %li= link_to "Documents", documents_path
-              %li= link_to "Pro Agent Account", "#"
-              %li= link_to "Find Agents", "#"
-              %li= link_to "Banking & Finance Help", "#"
-              %li= link_to "Help & Support", "#"
-              %li= link_to "SMS Alerts", "#"
-              %li= link_to "Email Alerts", "#"
-              %li= link_to "Articles", :controller => 'realestate', :action => 'show_articles'
-              %li= link_to "Contact Us", "#"
+              %li= link_to "Essential Documents", documents_path
+              %li= link_to "Useful Articles", :controller => 'realestate', :action => 'show_articles'
+              %li= link_to "Individual Account", :controller => 'accounts', :action => 'new', :type => 'ind'
+              %li= link_to "Pro Agent Account", :controller => 'accounts', :action => 'new', :type => 'agent'
+              %li= link_to "All Realtors", :controller => 'realestate', :action => 'agency_search'
+              /   %li= link_to "Banking & Finance Help", "#"
+              /   %li= link_to "Help & Support", "#"
+              /   %li= link_to "SMS Alerts", "#"
+              /   %li= link_to "Email Alerts", "#"
+              /   %li= link_to "Contact Us", "#"
 
             .clear
 
