@@ -3,19 +3,19 @@ class AccountMailer < ActionMailer::Base
   def signup_notification(account)
     setup_email(account)
     @subject    += 'Please activate your new account'
-    @body[:url]  = "http://propertyuz.com/activate/#{account.activation_code}"
+    @body[:url]  = "http://realtyuz.co.cc/activate/#{account.activation_code}"
   end
   
   def activation(account)
     setup_email(account)
     @subject    += 'Your account has been activated!'
-    @body[:url]  = "http://propertyuz.com/"
+    @body[:url]  = "http://realtyuz.co.cc/"
   end
   
   def forgot_password(account)
     setup_email(account)
     @subject    += 'You have requested to change your password'
-    @body[:url]  = "http://localhost:3000/reset_password/#{account.password_reset_code}" 
+    @body[:url]  = "http://realtyuz.co.cc/reset_password/#{account.password_reset_code}" 
   end
   
   def reset_password(account)
@@ -48,7 +48,7 @@ class AccountMailer < ActionMailer::Base
   protected
     def setup_email(account)
       @recipients  = account.email
-      @from        = "admin@property.uz"
+      @from        = "saida.temirkhodjaeva@gmail.com"
       @subject     = "Real Estate Trading Company: "
       @sent_on     = Time.now
       @body[:account] = account
