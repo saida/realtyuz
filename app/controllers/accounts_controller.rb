@@ -41,14 +41,14 @@ class AccountsController < ApplicationController
     logout_keeping_session!
     require 'net/http'
     @account = Account.new(params[:account])
-
+    correct_captcha = verify_recaptcha(@account)
+    
     @user = User.new(params[:account][:user])
     @user.email = params[:account][:email]
-    @user.save if @user.valid?
+    @user.save if @user.valid? && correct_captcha
     @account.user_id = @user.id
-    @account.register! if @account && @account.valid? && @user.valid?
+    @account.register! if @account && @account.valid? && @user.valid? && correct_captcha
     success = @user && @account && @account.valid? && @user.valid?
-    correct_captcha = verify_recaptcha(@account) 
     if success && @account.errors.empty? && @user.save && correct_captcha
       if params[:type] == 'ind'
         @account.user.utype.id = 5

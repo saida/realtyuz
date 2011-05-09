@@ -1,6 +1,6 @@
 .clear
 
-%div{:id => params[:layout] ? '' : 'main' }
+%div{ :id => params[:layout] ? '' : 'main' }
 	#edit-account
 		.close=h link_to_close_redbox "X", :url => {:controller => 'realestate', :action => 'index'}
 		#title Edit Your Account

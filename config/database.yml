@@ -21,7 +21,7 @@ test:
   
 production:
   adapter: postgresql
-  database: realestate_production
+  database: realestate_development
   username: root
   password: root
   host: localhost

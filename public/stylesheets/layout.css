@@ -27,6 +27,10 @@ h1#logo { font: bold 48px Tahoma, Geneva, sans-serif; color:#368291;}
 #content #sidebar {
 	background: url(../images/hotbg.jpg) repeat;
 }
+#logo2 { float:left; margin:5px 12px; color:white; font-weight:bold; font-size:18px; }
+#logo2 a { text-decoration:none; }
+#logo2 a:hover { text-decoration:none; }
+
 
 #search {background:url(../images/searchbg.jpg); height:301px;}
 .hot {background:url(../images/hotbg.jpg); height:301px;}
@@ -653,6 +657,38 @@ a.highlight {
 	width:135px;
   border: 1px solid #666; 
   background-color:#FFF;
+}
+
+/* Password */
+
+#forgot-password, #change-password {
+	background-color: #fff;
+	width: 400px;
+	margin-top: 230px;
+	padding: 10px;
+}
+
+#change-password {
+	width:500px;
+}
+
+.close {
+	padding-bottom: 10px;
+	float: right;
+}
+
+.close a {
+	color: #333;
+	font-weight: bold;
+	text-decoration: none;
+	padding-left: 4px;
+}
+
+.close a:hover {
+	color: #000;
+	font-weight: bold;
+	text-decoration: none;
+	padding-left: 3px;
 }
 
 
